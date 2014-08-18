@@ -1,0 +1,44 @@
+@share-button-width: 32px;
+@share-button-height: 32px;
+
+.bg-position(@ordinal) {
+    background-position: -@share-button-width * @ordinal 0px;
+}
+
+.addthis_sharing_toolbox {
+    .at-share-tbx-element .at-share-btn {
+        margin: 0px 15px;
+    }
+
+    .at-share-btn {
+        .at15nc {
+            background: url("../img/share-buttons-sprite.png") no-repeat;
+
+            &.at15t_facebook {
+                .bg-position(0);
+            }
+            &.at15t_google_plusone_share {
+                .bg-position(1);
+            }
+            &.at15t_twitter {
+                .bg-position(2);
+            }
+            &.at15t_linkedin {
+                .bg-position(3);
+            }
+            &.at15t_blogger {
+                .bg-position(4);
+            }
+            &.at15t_pinterest_share {
+                .bg-position(5);
+            }
+            &.at15t_vk {
+                .bg-position(6);
+            }
+
+            &:active, &:hover {
+                background-position-y: -@share-button-height;
+            }
+        }
+    }
+}
