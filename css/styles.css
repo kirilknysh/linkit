@@ -1,1 +1,68 @@
-body{background:#ccc}
+.addthis_sharing_toolbox .at-share-tbx-element .at-share-btn {
+  margin: 0px 15px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc {
+  background: url("../img/share-buttons-sprite.png") no-repeat;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_facebook {
+  background-position: 0px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_google_plusone_share {
+  background-position: -32px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_twitter {
+  background-position: -64px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_linkedin {
+  background-position: -96px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_blogger {
+  background-position: -128px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_pinterest_share {
+  background-position: -160px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_vk {
+  background-position: -192px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc:hover {
+  background-position-y: -32px;
+}
+html {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 1.2em;
+}
+header {
+  background: #f00;
+}
+body {
+  background: #cccccc;
+}
+footer {
+  background: #333333;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 50px;
+}
+footer:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+footer .info,
+footer .addthis_sharing_toolbox {
+  display: inline-block;
+  color: #eeeeee;
+}
+footer .info {
+  vertical-align: middle;
+}
+footer .addthis_sharing_toolbox {
+  position: absolute;
+  right: 0px;
+  top: 9px;
+}
