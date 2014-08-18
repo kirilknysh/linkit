@@ -2,6 +2,40 @@
 @import "mixins";
 @import "share-buttons";
 
+html {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 1.2em;
+}
+
+header {
+    background: #f00;
+}
+
 body {
     background: @main-bg;
+}
+
+footer {
+    background: @dark-bg;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    .vertical-align();
+
+    .info, .addthis_sharing_toolbox {
+        display: inline-block;
+        color: @light-color;
+    }
+
+    .info {
+        vertical-align: middle;
+    }
+
+    .addthis_sharing_toolbox {
+        position: absolute;
+        right: 0px;
+        top: 9px;
+    }
 }
