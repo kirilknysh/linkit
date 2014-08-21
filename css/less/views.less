@@ -1,0 +1,28 @@
+@import "variables";
+@import "animations";
+
+.view {
+    width: 80%;
+    left: 10%;
+    position: absolute;
+    margin: auto;
+    -webkit-transform: translate3d(@view-outside-x-translation, 0px, 0px);
+    transform: translate3d(@view-outside-x-translation, 0px, 0px);
+
+    &.show {
+        -webkit-animation: show-view @view-show-speed cubic-bezier(0,1,.43,1) forwards;
+        animation: show-view @view-show-speed cubic-bezier(0,1,.43,1) forwards;
+    }
+
+    &.hide {
+        -webkit-animation: hide-view @view-hide-speed cubic-bezier(.12,.89,.45,.99) forwards;
+        animation: hide-view @view-hide-speed cubic-bezier(.12,.89,.45,.99) forwards;
+    }
+
+    &.text-view {
+        background: fade(@light-bg, 70%);
+        min-height: 50%;
+        width: 50%;
+        left: 25%;
+    }
+}
