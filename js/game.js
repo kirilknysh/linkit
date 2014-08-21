@@ -3,7 +3,7 @@ define(["lodash", "backbone"],
         var game = {};
 
         _.extend(game, {
-            initialize: function () {
+            initialize: function (router) {
                 
             }
         });
