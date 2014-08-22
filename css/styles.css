@@ -1,3 +1,6 @@
+.nintja {
+  opacity: 0;
+}
 .addthis_sharing_toolbox .at-share-tbx-element .at-share-btn {
   margin: 0px 15px;
 }
@@ -88,14 +91,32 @@
   min-height: 50%;
   width: 50%;
   left: 25%;
-  border-bottom: 15px solid #ff9900;
-  border-top: 15px solid #336688;
+  top: 25%;
 }
 html {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 header {
-  background: #f00;
+  position: relative;
+  background: rgba(51, 102, 153, 0.7);
+  height: 7vh;
+  color: #eeeeee;
+}
+header h1 {
+  font-size: 200%;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+header h2 {
+  line-height: 110%;
+  position: absolute;
+  right: 10px;
+  bottom: 3px;
+  white-space: nowrap;
+}
+header .header-instructions {
+  transition: opacity 500ms linear;
 }
 body {
   background: url('../img/bg-pattern-grey-1.png') #cccccc;
@@ -107,7 +128,7 @@ footer {
   bottom: 0px;
   left: 0px;
   right: 0px;
-  height: 50px;
+  height: 7vh;
 }
 footer:before {
   content: "";
