@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "js/views/base", "text!html/welcome.html"],
-    function (_, Backbone, BaseView, WelcomeTemplate) {
+define(["lodash", "backbone", "js/views/base", "game", "text!html/welcome.html"],
+    function (_, Backbone, BaseView, Game, WelcomeTemplate) {
         return BaseView.extend({
 
             template: _.template(WelcomeTemplate),
@@ -23,6 +23,18 @@ define(["lodash", "backbone", "js/views/base", "text!html/welcome.html"],
                 classes.push("text-view");
 
                 return classes;
+            },
+
+            show: function (waitFor) {
+                Game.eventsBus.trigger("header.toggleInstructions", false);
+
+                return BaseView.prototype.show.apply(this, arguments);
+            },
+
+            hide: function () {
+                Game.eventsBus.trigger("header.toggleInstructions", true);
+
+                return BaseView.prototype.show.apply(this, arguments);
             }
 
         });

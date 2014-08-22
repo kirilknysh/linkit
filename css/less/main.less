@@ -8,7 +8,29 @@ html {
 }
 
 header {
-    background: #f00;
+    position: relative;
+    background: fade(@azure-bg, 70%);
+    height: @header-height;
+    color: @light-color;
+
+    h1 {
+        font-size: 200%;
+        text-align: center;
+        font-weight: @bold;
+        letter-spacing: 5px;
+    }
+
+    h2 {
+        line-height: 110%;
+        position: absolute;
+        right: 10px;
+        bottom: 3px;
+        white-space: nowrap;
+    }
+
+    .header-instructions {
+        transition: opacity @view-show-speed / 2 linear;
+    }
 }
 
 body {
@@ -22,7 +44,7 @@ footer {
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 50px;
+    height: @footer-height;
     .vertical-align();
 
     .info, .addthis_sharing_toolbox {
