@@ -41,3 +41,13 @@
         transform: translate3d(@view-hidden-x-translation, 0px, 0px);
     }
 }
+
+@-webkit-keyframes postRender {
+    from { clip: rect(1px, auto, auto, auto); }
+    to { clip: rect(0px, auto, auto, auto); }
+}
+
+@keyframes postRender {
+    from { clip: rect(1px, auto, auto, auto); }
+    to { clip: rect(0px, auto, auto, auto); }
+}

@@ -1,6 +1,8 @@
-define(["lodash", "backbone", "jquery"],
-    function (_, Backbone, $) {
+define(["lodash", "backbone", "jquery", "text!html/postRender.html"],
+    function (_, Backbone, $, PostRender) {
         return Backbone.View.extend({
+
+            getPostRenderIndicator: _.template(PostRender),
 
             initialize: function () {
                 this.$el.addClass(_.compact(this.getCssClasses()).join(" "));
@@ -11,18 +13,25 @@ define(["lodash", "backbone", "jquery"],
                     this.$el.html(this.template());
                 }
 
+                this.$el.append(this.getPostRenderIndicator());
+
                 return this.$el;
             },
 
-            show: function (waitFor) {
-                this.$el.addClass("show");
+            show: function () {
+                var dfd = new $.Deferred();
+
+                this.$el.one("webkitAnimationEnd animationend", dfd.resolve)
+                    .addClass("show");
+
+                return dfd;
             },
 
             hide: function () {
                 var dfd = new $.Deferred();
 
                 this.$el.one("webkitAnimationEnd animationend", dfd.resolve)
-                    .addClass("hide").removeClass("show");
+                    .addClass("hide");
 
                 return dfd;
             },

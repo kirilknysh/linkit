@@ -28,7 +28,7 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/welcome.html"]
             hide: function () {
                 Game.eventsBus.trigger("header.toggleInstructions", true);
 
-                return BaseView.prototype.show.apply(this, arguments);
+                return BaseView.prototype.hide.apply(this, arguments);
             }
 
         });

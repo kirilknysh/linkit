@@ -21,31 +21,55 @@ define(["lodash", "backbone", "jquery", "js/views/welcome", "js/views/level"],
             },
 
             welcome: function () {
-                this.showView(WelcomeView, this.hideCurrentView());
+                this.hideCurrentView();
+                this.showView(WelcomeView);
             },
 
             level: function (number) {
-                this.showView(LevelView, this.hideCurrentView());
+                this.hideCurrentView();
+                this.showView(LevelView);
             },
 
             hideCurrentView: function () {
-                var waitFor;
+                var view = this.currentView;
 
-                if (this.currentView) {
-                    waitFor = $.when(this.currentView.hide()).then(_.bind(this.currentView.remove, this.currentView));
+                if (view) {
+                    return $.when(view.hide()).always(function () {
+                        view.remove();
+                    });
+                } else {
+                    return (new $.Deferred()).resolve();
                 }
-                
-                return $.when(waitFor);
             },
 
-            showView: function (viewClass, waitFor) {
+            showView: function (viewClass) {
+                var dfd = new $.Deferred(),
+                    viewRootEl, postRenderEl;
+
                 this.currentView = new viewClass();
+                viewRootEl = this.currentView.render();
 
-                this.$container.append(this.currentView.render());
+                function showCurrentView() {
+                    $.when(this.currentView.show()).always(function () {
+                        dfd.resolve();
+                    });
+                }
 
-                setTimeout(_.bind(function () {
-                    this.currentView.show(waitFor);                    
-                }, this), 100);
+                if (viewRootEl) {
+                    postRenderEl = viewRootEl.find(".postRender");
+
+                    if (postRenderEl.length) {
+                        postRenderEl.one("webkitAnimationEnd animationend", _.bind(showCurrentView, this));
+                    } else {
+                        showCurrentView();
+                    }
+                    
+                    this.$container.append(viewRootEl);
+                } else {
+                    dfd.resolve();
+                }
+
+                return dfd;
             }
 
         });

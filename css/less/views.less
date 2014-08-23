@@ -27,6 +27,19 @@
         top: 25%;
         padding: @view-text-padding;
     }
+
+    .postRender {
+        opacity: 0;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 1px;
+        height: 1px;
+        animation-duration: 1ms;
+        -webkit-animation-duration: 1ms;
+        animation-name: postRender;
+        -webkit-animation-name: postRender;
+    }
 }
 
 .view.welcome {
