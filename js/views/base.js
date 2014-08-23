@@ -1,9 +1,17 @@
-define(["backbone", "jquery"],
-    function (Backbone, $) {
+define(["lodash", "backbone", "jquery"],
+    function (_, Backbone, $) {
         return Backbone.View.extend({
 
             initialize: function () {
-                this.$el.addClass(this.getCssClasses().join(" "));
+                this.$el.addClass(_.compact(this.getCssClasses()).join(" "));
+            },
+
+            render: function () {
+                if (_.isFunction(this.template)) {
+                    this.$el.html(this.template());
+                }
+
+                return this.$el;
             },
 
             show: function (waitFor) {
@@ -20,7 +28,7 @@ define(["backbone", "jquery"],
             },
 
             getCssClasses: function () {
-                return ["view"];
+                return ["view", this.name];
             }
 
         });

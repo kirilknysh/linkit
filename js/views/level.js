@@ -9,12 +9,6 @@ define(["lodash", "backbone", "js/views/base", "text!html/level.html"],
 
             events: {
 
-            },
-
-            render: function () {
-                this.$el.html(this.template());
-
-                return this.$el;
             }
 
         });

@@ -11,12 +11,6 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/welcome.html"]
 
             },
 
-            render: function () {
-                this.$el.html(this.template());
-
-                return this.$el;
-            },
-
             getCssClasses: function () {
                 var classes = BaseView.prototype.getCssClasses.apply(this, arguments);
 
