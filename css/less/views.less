@@ -20,10 +20,39 @@
     }
 
     &.text-view {
-        background: fade(@light-bg, 60%);
+        background: fade(@light-bg, 75%);
         min-height: 50%;
         width: 50%;
         left: 25%;
         top: 25%;
+        padding: @view-text-padding;
+    }
+}
+
+.view.welcome {
+    color: @dark-color;
+    letter-spacing: 2px;
+
+    h2 {
+        font-weight: @bold;
+        text-align: center;
+        font-size: 160%;
+        margin-bottom: 20px;
+    }
+
+    p {
+        text-align: justify;
+        line-height: 160%;
+        margin-bottom: 15px;
+        font-size: 120%;
+    }
+
+    .buttons {
+        text-align: center;
+        position: absolute;
+        bottom: @view-text-padding + 10;
+        left: @view-text-padding;
+        right: @view-text-padding;
+        font-size: 220%;
     }
 }
