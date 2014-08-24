@@ -77,7 +77,7 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/welcome", "js/views
                     postRenderEl = viewRootEl.find(".postRender");
 
                     if (postRenderEl.length) {
-                        postRenderEl.one("animationend webkitAnimationEnd MSAnimationEnd", _.bind(showCurrentView, this));
+                        postRenderEl.one("animationend webkitAnimationEnd", _.bind(showCurrentView, this));
                     } else {
                         showCurrentView();
                     }
