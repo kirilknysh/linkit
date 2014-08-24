@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "js/views/header"],
-    function(_, Backbone, $, HeaderView) {
+define(["lodash", "backbone", "jquery", "js/enum", "js/views/header"],
+    function(_, Backbone, $, Enum, HeaderView) {
         var game = {
             eventsBus: _.extend({}, Backbone.Events)
         };
@@ -10,10 +10,15 @@ define(["lodash", "backbone", "jquery", "js/views/header"],
             initialize: function (router) {
                 var header = new HeaderView({ el: $("#header").get(0) });
 
-                header.render();
-                this.eventsBus.on("header.toggleInstructions", _.bind(header.toggleInstructions, header));
-
                 this.printVersionInfo();
+
+                header.render();
+
+                if (!this.checkBrowser()) {
+                    return router.navigate("error/" + Enum.GameErrorTypes.OLD_BROWSER, { trigger: true });
+                }
+
+                this.eventsBus.on("header.toggleInstructions", _.bind(header.toggleInstructions, header));
             },
 
             printVersionInfo: function () {
@@ -24,6 +29,10 @@ define(["lodash", "backbone", "jquery", "js/views/header"],
                 log.call(console, "= jQuery: " + $.fn.jquery);
                 log.call(console, "= Link It: " + this.VERSION);
                 log.call(console, "===========================");
+            },
+
+            checkBrowser: function () {
+                return !! (window.indexedDB);
             }
         });
 
