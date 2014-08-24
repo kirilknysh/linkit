@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "js/views/welcome", "js/views/level"],
-    function (_, Backbone, $, WelcomeView, LevelView) {
+define(["lodash", "backbone", "jquery", "js/enum", "js/views/welcome", "js/views/level", "js/views/error", "js/views/oldBrowserError"],
+    function (_, Backbone, $, Enum, WelcomeView, LevelView, ErrorView, OldBrowserErrorView) {
         var router = Backbone.Router.extend({
 
             currentView: null,
@@ -8,6 +8,7 @@ define(["lodash", "backbone", "jquery", "js/views/welcome", "js/views/level"],
             routes: {
                 "": "setDefault",
                 "welcome": "welcome",
+                "error(/:errorType)": "error",
                 "level/:number": "level"
             },
 
@@ -23,6 +24,23 @@ define(["lodash", "backbone", "jquery", "js/views/welcome", "js/views/level"],
             welcome: function () {
                 this.hideCurrentView();
                 this.showView(WelcomeView);
+            },
+
+            error: function (errorType) {
+                var viewToShow,
+                    errorCode = _.parseInt(errorType);
+
+                switch(errorCode) {
+                    case Enum.GameErrorTypes.OLD_BROWSER:
+                        viewToShow = OldBrowserErrorView;
+                        break;
+                    default:
+                        viewToShow = ErrorView;
+                        break;
+                }
+
+                this.hideCurrentView();
+                this.showView(viewToShow);
             },
 
             level: function (number) {
