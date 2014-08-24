@@ -156,6 +156,13 @@
   right: 10px;
   font-size: 220%;
 }
+.view.old-browser-error {
+  height: 86vh;
+  background: url('../img/bg-pattern-grey-1.png') #cccccc;
+  box-shadow: #000 0px 0px 10px 0px inset;
+  padding: 10px;
+  box-sizing: border-box;
+}
 html {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
