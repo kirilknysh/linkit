@@ -21,7 +21,7 @@ define(["lodash", "backbone", "jquery", "text!html/postRender.html"],
             show: function () {
                 var dfd = new $.Deferred();
 
-                this.$el.one("webkitAnimationEnd animationend", dfd.resolve)
+                this.$el.one("animationend webkitAnimationEnd MSAnimationEnd", dfd.resolve)
                     .addClass("show");
 
                 return dfd;
@@ -30,7 +30,7 @@ define(["lodash", "backbone", "jquery", "text!html/postRender.html"],
             hide: function () {
                 var dfd = new $.Deferred();
 
-                this.$el.one("webkitAnimationEnd animationend", dfd.resolve)
+                this.$el.one("animationend webkitAnimationEnd MSAnimationEnd", dfd.resolve)
                     .addClass("hide");
 
                 return dfd;
