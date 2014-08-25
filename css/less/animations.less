@@ -42,12 +42,12 @@
     }
 }
 
-@-webkit-keyframes postRender {
-    from { clip: rect(1px, auto, auto, auto); }
-    to { clip: rect(0px, auto, auto, auto); }
+@-webkit-keyframes post-render {
+    0% { -webkit-transform: translateZ(0px); }
+    100% { -webkit-transform: translateZ(-1px); }
 }
 
-@keyframes postRender {
-    from { clip: rect(1px, auto, auto, auto); }
-    to { clip: rect(0px, auto, auto, auto); }
+@keyframes post-render {
+    0% { transform: translateZ(0px); }
+    100% { transform: translateZ(-1px); }
 }
