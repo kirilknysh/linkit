@@ -14,7 +14,7 @@ require.config({
         }
     },
 
-    baseUrl: "/"
+    baseUrl: "./"
 });
 
 require(["backbone", "game", "router"], function (Backbone, Game, Router) {
