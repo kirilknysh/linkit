@@ -20,27 +20,51 @@
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_facebook {
   background-position: 0px 0px;
 }
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_facebook:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_facebook:hover {
+  background-position: 0px -32px;
+}
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_google_plusone_share {
   background-position: -32px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_google_plusone_share:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_google_plusone_share:hover {
+  background-position: -32px -32px;
 }
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_twitter {
   background-position: -64px 0px;
 }
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_twitter:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_twitter:hover {
+  background-position: -64px -32px;
+}
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_linkedin {
   background-position: -96px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_linkedin:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_linkedin:hover {
+  background-position: -96px -32px;
 }
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_blogger {
   background-position: -128px 0px;
 }
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_blogger:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_blogger:hover {
+  background-position: -128px -32px;
+}
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_pinterest_share {
   background-position: -160px 0px;
+}
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_pinterest_share:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_pinterest_share:hover {
+  background-position: -160px -32px;
 }
 .addthis_sharing_toolbox .at-share-btn .at15nc.at15t_vk {
   background-position: -192px 0px;
 }
-.addthis_sharing_toolbox .at-share-btn .at15nc:active,
-.addthis_sharing_toolbox .at-share-btn .at15nc:hover {
-  background-position-y: -32px;
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_vk:active,
+.addthis_sharing_toolbox .at-share-btn .at15nc.at15t_vk:hover {
+  background-position: -192px -32px;
 }
 @-webkit-keyframes show-view {
   0% {
@@ -80,20 +104,20 @@
     transform: translate3d(-100vw, 0px, 0px);
   }
 }
-@-webkit-keyframes postRender {
-  from {
-    clip: rect(1px, auto, auto, auto);
+@-webkit-keyframes post-render {
+  0% {
+    -webkit-transform: translateZ(0px);
   }
-  to {
-    clip: rect(0px, auto, auto, auto);
+  100% {
+    -webkit-transform: translateZ(-1px);
   }
 }
-@keyframes postRender {
-  from {
-    clip: rect(1px, auto, auto, auto);
+@keyframes post-render {
+  0% {
+    transform: translateZ(0px);
   }
-  to {
-    clip: rect(0px, auto, auto, auto);
+  100% {
+    transform: translateZ(-1px);
   }
 }
 .view {
@@ -129,8 +153,8 @@
   height: 1px;
   animation-duration: 1ms;
   -webkit-animation-duration: 1ms;
-  animation-name: postRender;
-  -webkit-animation-name: postRender;
+  animation-name: post-render;
+  -webkit-animation-name: post-render;
 }
 .view.welcome {
   color: #333333;
