@@ -3,6 +3,9 @@
 
 .bg-position(@ordinal) {
     background-position: -@share-button-width * @ordinal 0px;
+    &:active, &:hover {
+        background-position: -@share-button-width * @ordinal -@share-button-height;
+    }
 }
 
 .addthis_sharing_toolbox {
@@ -34,10 +37,6 @@
             }
             &.at15t_vk {
                 .bg-position(6);
-            }
-
-            &:active, &:hover {
-                background-position-y: -@share-button-height;
             }
         }
     }
