@@ -9,8 +9,15 @@
 }
 
 .addthis_sharing_toolbox {
-    .at-share-tbx-element .at-share-btn {
-        margin: 0px 15px;
+    .vertical-align();
+
+    .at-share-tbx-element {
+        vertical-align: middle;
+        display: inline-block!important;//to override addthis style :(
+
+        .at-share-btn {
+            margin: 0px 15px;
+        }
     }
 
     .at-share-btn {
