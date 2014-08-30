@@ -67,6 +67,15 @@
         left: @view-text-padding;
         right: @view-text-padding;
         font-size: 4vw;
+
+        &.loading {
+            .indicator {
+                display: block;
+            }
+            .button {
+                display: none;
+            }
+        }
     }
 }
 

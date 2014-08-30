@@ -38,7 +38,7 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/welcome.html"]
             },
 
             toggleStartButton: function (start) {
-                this.$(".buttons").toggleClass("loading", _.isBoolean(start) ? start : null);
+                this.$(".buttons").toggleClass("loading", _.isBoolean(start) ? !start : null);
             }
 
         });
