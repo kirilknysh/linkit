@@ -1,0 +1,27 @@
+{
+    "levels": [{
+        "index": 1,
+        "basis": [
+            { "id": 0, "imgUrl": "img/b0.png" },
+            { "id": 1, "imgUrl": "img/b1.png"},
+            { "id": 2, "imgUrl": "img/b2.png"}
+        ],
+        "targets": [
+            { "id": 0, "imgUrl": "img/t0.png" },
+            { "id": 1, "imgUrl": "img/t1.png"},
+            { "id": 2, "imgUrl": "img/t2.png"}
+        ],
+        "solution": "0-1_1-2_2-0"
+    }, {
+        "index": 2,
+        "basis": [
+            { "id": 0, "imgUrl": "img/b3.png" },
+            { "id": 1, "imgUrl": "img/b4.png"}
+        ],
+        "targets": [
+            { "id": 0, "imgUrl": "img/t3.png" },
+            { "id": 1, "imgUrl": "img/t4.png"}
+        ],
+        "solution": "0-1_1-2_2-0"
+    }]
+}
