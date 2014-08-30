@@ -2,19 +2,31 @@
 
 @-webkit-keyframes show-view {
     0% {
-        -webkit-transform: translate3d(@view-outside-x-translation, 0px, 0px);
+        -webkit-transform: translate3d(@view-outside-x-translation, 0px, 0px) scale(@view-before-show-scale-factor);
+    }
+    50% {
+        -webkit-transform: translate3d(@view-outside-x-translation, 0px, 0px) scale(@view-before-show-scale-factor);
+    }
+    75% {
+        -webkit-transform: translate3d(@view-default-translation, 0px, 0px) scale(@view-before-show-scale-factor);
     }
     100% {
-        -webkit-transform: translate3d(@view-default-translation, 0px, 0px);
+        -webkit-transform: translate3d(@view-default-translation, 0px, 0px) scale(1);
     }
 }
 
 @keyframes show-view {
     0% {
-        transform: translate3d(@view-outside-x-translation, 0px, 0px);
+        transform: translate3d(@view-outside-x-translation, 0px, 0px) scale(@view-before-show-scale-factor);
+    }
+    50% {
+        transform: translate3d(@view-outside-x-translation, 0px, 0px) scale(@view-before-show-scale-factor);
+    }
+    75% {
+        transform: translate3d(@view-default-translation, 0px, 0px) scale(@view-before-show-scale-factor);
     }
     100% {
-        transform: translate3d(@view-default-translation, 0px, 0px);
+        transform: translate3d(@view-default-translation, 0px, 0px) scale(1);
     }
 }
 
@@ -22,11 +34,14 @@
     0% {
         -webkit-transform: translate3d(@view-default-translation, 0px, 0px);
     }
-    10% {
-        -webkit-transform: translate3d(@view-before-hide-jump-x, 0px, 0px);
+    35% {
+        -webkit-transform: translate3d(@view-default-translation, 0px, 0px) scale(@view-before-hide-scale-factor);
+    }
+    50% {
+        -webkit-transform: translate3d(@view-default-translation, 0px, 0px) scale(@view-before-hide-scale-factor);
     }
     100% {
-        -webkit-transform: translate3d(@view-hidden-x-translation, 0px, 0px);
+        -webkit-transform: translate3d(@view-hidden-x-translation, 0px, 0px) scale(@view-before-hide-scale-factor);
     }
 }
 
@@ -34,11 +49,14 @@
     0% {
         transform: translate3d(@view-default-translation, 0px, 0px);
     }
-    10% {
-        transform: translate3d(@view-before-hide-jump-x, 0px, 0px);
+    35% {
+        transform: translate3d(@view-default-translation, 0px, 0px) scale(@view-before-hide-scale-factor);
+    }
+    50% {
+        transform: translate3d(@view-default-translation, 0px, 0px) scale(@view-before-hide-scale-factor);
     }
     100% {
-        transform: translate3d(@view-hidden-x-translation, 0px, 0px);
+        transform: translate3d(@view-hidden-x-translation, 0px, 0px) scale(@view-before-hide-scale-factor);
     }
 }
 
