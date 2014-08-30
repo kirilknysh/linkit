@@ -1,8 +1,9 @@
-define(["lodash", "backbone", "jquery", "js/enum", "js/views/header"],
-    function(_, Backbone, $, Enum, HeaderView) {
+define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models/dataAccessor"],
+    function(_, Backbone, $, Enum, HeaderView, DataAccessor) {
         var game = {
-            eventsBus: _.extend({}, Backbone.Events)
-        };
+                eventsBus: _.extend({}, Backbone.Events),
+                db: null
+            };
 
         _.extend(game, {
             VERSION: "0.1",
@@ -19,6 +20,11 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header"],
                 }
 
                 this.eventsBus.on("header.toggleInstructions", _.bind(header.toggleInstructions, header));
+
+                this.db = new DataAccessor();
+                this.initializeDB().fail(function () {
+                    return router.navigate("error/" + Enum.GameErrorTypes.NO_LEVELS_LOADED, { trigger: true });
+                });
             },
 
             printVersionInfo: function () {
@@ -33,6 +39,20 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header"],
 
             checkBrowser: function () {
                 return !! (window.indexedDB);
+            },
+
+            initializeDB: function () {
+                return this.db.initDB()
+                    .then(function () {
+                        if (game.db.getLevelsCount() > 0) {
+                            game.eventsBus.trigger("levels.loaded");
+                        } else {
+                            //no levels - let's try to load them!
+                            return game.db.fetchLevels().then(function () {
+                                game.eventsBus.trigger("levels.loaded");
+                            });
+                        }
+                    });
             }
         });
 

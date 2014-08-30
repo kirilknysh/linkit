@@ -6,7 +6,8 @@ define(["lodash"],
             "GameErrorTypes": {
                 "GENERIC": 0,
                 "OLD_BROWSER": 1,
-                "PAGE_NOT_FOUND": 2
+                "PAGE_NOT_FOUND": 2,
+                "NO_LEVELS_LOADED": 3
             }
         });
 
