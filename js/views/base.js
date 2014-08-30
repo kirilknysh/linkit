@@ -10,12 +10,16 @@ define(["lodash", "backbone", "jquery", "text!html/postRender.html"],
 
             render: function () {
                 if (_.isFunction(this.template)) {
-                    this.$el.html(this.template());
+                    this.$el.html(this.template(this.getTemplateData()));
                 }
 
                 this.$el.append(this.getPostRenderIndicator());
 
                 return this.$el;
+            },
+
+            getTemplateData: function () {
+                return {};
             },
 
             show: function () {

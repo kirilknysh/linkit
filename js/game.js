@@ -2,7 +2,8 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
     function(_, Backbone, $, Enum, HeaderView, DataAccessor) {
         var game = {
                 eventsBus: _.extend({}, Backbone.Events),
-                db: null
+                db: null,
+                status: Enum.GameStatus.LOADING
             };
 
         _.extend(game, {
@@ -22,9 +23,13 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
                 this.eventsBus.on("header.toggleInstructions", _.bind(header.toggleInstructions, header));
 
                 this.db = new DataAccessor();
-                this.initializeDB().fail(function () {
-                    return router.navigate("error/" + Enum.GameErrorTypes.NO_LEVELS_LOADED, { trigger: true });
-                });
+                this.initializeDB()
+                    .done(function () {
+                        game.status = Enum.GameStatus.READY;
+                    })
+                    .fail(function () {
+                        return router.navigate("error/" + Enum.GameErrorTypes.NO_LEVELS_LOADED, { trigger: true });
+                    });
             },
 
             printVersionInfo: function () {

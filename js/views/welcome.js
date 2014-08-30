@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "js/views/base", "game", "text!html/welcome.html"],
-    function (_, Backbone, BaseView, Game, WelcomeTemplate) {
+define(["lodash", "backbone", "js/views/base", "game", "js/enum", "text!html/welcome.html"],
+    function (_, Backbone, BaseView, Game, Enum, WelcomeTemplate) {
         return BaseView.extend({
 
             template: _.template(WelcomeTemplate),
@@ -15,6 +15,16 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/welcome.html"]
                 Game.eventsBus.once("levels.loaded", _.bind(this.toggleStartButton, this, true));
 
                 BaseView.prototype.initialize.apply(this, arguments);
+            },
+
+            getTemplateData: function () {
+                var td = BaseView.prototype.getTemplateData.apply(this, arguments);
+
+                _.assign(td, {
+                    buttonsClass: Game.status === Enum.GameStatus.LOADING ? "loading": ""
+                });
+
+                return td;
             },
 
             getCssClasses: function () {
