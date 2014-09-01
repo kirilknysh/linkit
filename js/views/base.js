@@ -8,6 +8,10 @@ define(["lodash", "backbone", "jquery", "text!html/postRender.html"],
                 this.$el.addClass(_.compact(this.getCssClasses()).join(" "));
             },
 
+            prepareData: function () {
+                return true;
+            },
+
             render: function () {
                 if (_.isFunction(this.template)) {
                     this.$el.html(this.template(this.getTemplateData()));
