@@ -74,7 +74,27 @@ define(["lodash", "backbone", "jquery"],
             },
 
             getLevel: function (index) {
+                var dfd = new $.Deferred(),
+                    db = this.get("db"),
+                    objectStore, storeIndex;
 
+
+                if (!_.isNumber(index)) {
+                    return dfd.reject();
+                }
+
+                objectStore = db.transaction(this.get("DB_LEVELS_STORAGE"), "readonly")
+                        .objectStore(this.get("DB_LEVELS_STORAGE"));
+                storeIndex = objectStore.index("by_index").get(index);
+                
+                storeIndex.onsuccess = function () {
+                    dfd.resolve(this.result);
+                };
+                storeIndex.onerror = function () {
+                    dfd.reject();
+                };
+
+                return dfd;
             },
 
             fetchLevels: function () {
