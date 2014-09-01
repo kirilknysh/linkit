@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery"],
-    function (_, Backbone, $) { 
+define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
+    function (_, Backbone, $, LevelsPool) { 
 
         /*
          * General rules:
@@ -88,7 +88,7 @@ define(["lodash", "backbone", "jquery"],
                 storeIndex = objectStore.index("by_index").get(index);
                 
                 storeIndex.onsuccess = function () {
-                    dfd.resolve(this.result);
+                    dfd.resolve(LevelsPool.get().init(this.result));
                 };
                 storeIndex.onerror = function () {
                     dfd.reject();
