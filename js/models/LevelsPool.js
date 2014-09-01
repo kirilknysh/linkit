@@ -11,26 +11,25 @@ define(["lodash", "backbone", "jquery", "js/models/LevelModel"],
 
         }
 
-            _.assign(LevelsPool, {
-                pool: [],
-                poolVolume: 0,
+        _.assign(LevelsPool, {
+            pool: [],
+            poolVolume: 0,
 
-                get: function () {
-                    if (this.poolVolume > 0) {
-                        --this.poolVolume;
-                        return this.pool.pop();
-                    } else {
-                        return createLevel();
-                    }
-                },
-
-                put: function (level) {
-                    clearLevel(level);
-                    ++this.poolVolume;
-                    this.pool.push(level);
+            get: function () {
+                if (this.poolVolume > 0) {
+                    --this.poolVolume;
+                    return this.pool.pop();
+                } else {
+                    return createLevel();
                 }
-            });
+            },
 
+            put: function (level) {
+                clearLevel(level);
+                ++this.poolVolume;
+                this.pool.push(level);
+            }
+        });
 
         return LevelsPool;
 });

@@ -69,10 +69,6 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                 return dfd;
             },
 
-            polyfillIndexedDB: function () {
-
-            },
-
             getLevel: function (index) {
                 var dfd = new $.Deferred(),
                     db = this.get("db"),
