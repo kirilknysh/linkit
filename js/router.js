@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "js/enum", "js/views/welcome", "js/views/level", "js/views/error", "js/views/oldBrowserError"],
-    function (_, Backbone, $, Enum, WelcomeView, LevelView, ErrorView, OldBrowserErrorView) {
+define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "js/views/level", "js/views/error", "js/views/oldBrowserError"],
+    function (_, Backbone, $, Game, Enum, WelcomeView, LevelView, ErrorView, OldBrowserErrorView) {
         var router = Backbone.Router.extend({
 
             currentView: null,
@@ -44,8 +44,11 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/welcome", "js/views
             },
 
             level: function (number) {
-                this.hideCurrentView();
-                this.showView(LevelView, number);
+                //to navigate to level a fully initialized game is required
+                Game.onInitialize(_.bind(function () {
+                    this.hideCurrentView();
+                    this.showView(LevelView, number);
+                }, this));
             },
 
             hideCurrentView: function () {
@@ -66,7 +69,7 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/welcome", "js/views
                     viewRootEl, postRenderEl;
 
 
-                this.currentView = new (Function.prototype.bind.apply(viewClass, [null].concat(Array.prototype.slice.call(arguments, 1))));
+                this.currentView = new (Function.prototype.bind.apply(viewClass, [null].concat(Array.prototype.slice.call(arguments, 1))))();
                 $.when(this.currentView.prepareData()).then(function () {
                     viewRootEl = router.currentView.render();
 
