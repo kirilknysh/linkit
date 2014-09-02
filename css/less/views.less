@@ -81,8 +81,88 @@
 
 .view.old-browser-error {
     height: 100vh - @header-height - @footer-height;
-    background: @main-bg;
-    box-shadow: #000 0px 0px 10px 0px inset;
-    padding: @view-text-padding;
+    box-shadow: #000 0px 0px 25vw 0px inset;
     box-sizing: border-box;
+
+    .left-container, .right-container {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        padding: @view-text-padding;
+        box-sizing: border-box;
+
+        .vertical-align();
+    }
+
+    .left-container {
+        width: 30%;
+        left: 0px;
+        white-space: nowrap;
+
+        .image {
+            vertical-align: middle;
+            display: inline-block;
+        }
+    }
+    .right-container {
+        width: 70%;
+        right: 0px;
+        font-size: 0;
+
+        .message-content {
+            font-size: 1.5vw;
+            vertical-align: middle;
+            display: inline-block;
+            color: @light-color;
+
+            h2 {
+                font-size: 4vw;
+                line-height: 200%;
+            }
+
+            p {
+                line-height: 170%;
+            }
+        }
+    }
+
+    .browsers-thumbs {
+        margin: 10px;
+
+        .bg-position(@ordinal) {
+            background-position: @view-old-browser-logo-padding (-@view-old-browser-logo-height * @ordinal + @view-old-browser-logo-padding);
+            &:active, &:hover {
+                background-position: @view-old-browser-logo-padding (-@view-old-browser-logo-height * (@ordinal + 1) + @view-old-browser-logo-padding);
+            }
+        }
+
+        .browser-thumb {
+            display: inline-block;
+            margin: 2px;
+            height: @view-old-browser-logo-height + 2 * @view-old-browser-logo-padding;
+            color: @dark-color;
+            padding: 3px 3px 3px (@view-old-browser-logo-width + 2 * @view-old-browser-logo-padding);
+            box-sizing: border-box;
+            background: url("../img/browsers-logo-sprite.png") no-repeat @light-bg;
+            cursor: pointer;
+
+            .vertical-align();
+
+            &.chrome {
+                .bg-position(0);
+            }
+            &.firefox {
+                .bg-position(2);
+            }
+            &.safari {
+                .bg-position(4);
+            }
+            &.opera {
+                .bg-position(6);
+            }
+            &.ie {
+                .bg-position(8);
+            }
+        }
+    }
 }
