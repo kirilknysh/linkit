@@ -3,7 +3,8 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
         var game = {
                 eventsBus: _.extend({}, Backbone.Events),
                 db: null,
-                status: Enum.GameStatus.LOADING
+                status: Enum.GameStatus.LOADING,
+                initializeDfd: new $.Deferred()
             };
 
         _.extend(game, {
@@ -26,10 +27,15 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
                 this.initializeDB()
                     .done(function () {
                         game.status = Enum.GameStatus.READY;
+                        game.initializeDfd.resolve();
                     })
                     .fail(function () {
                         return router.navigate("error/" + Enum.GameErrorTypes.NO_LEVELS_LOADED, { trigger: true });
                     });
+            },
+
+            onInitialize: function (callback) {
+                $.when(this.initializeDfd).done(callback);
             },
 
             printVersionInfo: function () {
