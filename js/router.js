@@ -32,8 +32,8 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
 
                 switch(errorCode) {
                     case Enum.GameErrorTypes.OLD_BROWSER:
-                        viewToShow = OldBrowserErrorView;
-                        break;
+                        this.forceRemoveView(this.currentView);
+                        return this.showView(OldBrowserErrorView);
                     default:
                         viewToShow = ErrorView;
                         break;
@@ -52,14 +52,21 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
             },
 
             hideCurrentView: function () {
-                var view = this.currentView;
+                var view = this.currentView,
+                    router = this;
 
                 if (view) {
                     return $.when(view.hide()).always(function () {
-                        view.remove();
+                        router.forceRemoveView(view);
                     });
                 } else {
                     return (new $.Deferred()).resolve();
+                }
+            },
+
+            forceRemoveView: function (view) {
+                if (view && _.isFunction(view.remove)) {
+                    view.remove();
                 }
             },
 
