@@ -11,7 +11,7 @@
             { "id": 1, "imgUrl": "img/t1.png"},
             { "id": 2, "imgUrl": "img/t2.png"}
         ],
-        "solution": "0-1_1-2_2-0"
+        "solution": "U2FsdGVkX1+FwSIbP55rWVs6PkwWsAkC6oULZrAUkvs="
     }, {
         "index": 2,
         "basis": [
@@ -22,6 +22,6 @@
             { "id": 0, "imgUrl": "img/t3.png" },
             { "id": 1, "imgUrl": "img/t4.png"}
         ],
-        "solution": "0-1_1-2_2-0"
+        "solution": "U2FsdGVkX1/egTLvJS+Hz8+TAJ0JH0+7OcDDSmo1eUI="
     }]
 }
