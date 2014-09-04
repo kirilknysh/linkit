@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models/dataAccessor"],
-    function(_, Backbone, $, Enum, HeaderView, DataAccessor) {
+define(["lodash", "backbone", "jquery", "cryptojs-aes", "js/enum", "js/views/header", "js/models/dataAccessor"],
+    function(_, Backbone, $, CryptoJS, Enum, HeaderView, DataAccessor) {
         var game = {
                 eventsBus: _.extend({}, Backbone.Events),
                 db: null,
@@ -23,7 +23,7 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
 
                 this.eventsBus.on("header.toggleInstructions", _.bind(header.toggleInstructions, header));
 
-                this.db = new DataAccessor();
+                this.db = new DataAccessor({ encrypter: CryptoJS });
                 this.initializeDB()
                     .done(function () {
                         game.status = Enum.GameStatus.READY;

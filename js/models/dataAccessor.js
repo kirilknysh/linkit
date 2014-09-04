@@ -14,7 +14,8 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                 DB_LEVELS_STORAGE: "levels",
                 url: "./js/levels.json",
                 levelsCount: null,
-                db: null
+                db: null,
+                encrypter: null
             },
 
             initDB: function () {
