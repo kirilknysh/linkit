@@ -8,7 +8,7 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html"],
             name: "level",
 
             events: {
-
+                "click .check-solution": "onCheckSolutionClick"
             },
 
             initialize: function (index) {
@@ -23,6 +23,22 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html"],
                 return Game.db.getLevel(this.levelIndex).then(function (level) {
                     view.model = level;
                 });
+            },
+
+            onCheckSolutionClick: function (e) {
+                alert(this.validatelevel(this.getLevelSolution()));
+            },
+
+            getLevelSolution: function () {
+                return {
+                    "0": "1",
+                    "1": "2",
+                    "2": "0"
+                };
+            },
+
+            validatelevel: function (solution) {
+                return this.model.checkSolution(solution);
             }
 
         });
