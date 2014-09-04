@@ -48,9 +48,13 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
 
                 request.onupgradeneeded = function (e) {
                     var db = this.result,
-                        store = db.createObjectStore(model.get("DB_LEVELS_STORAGE"), { keyPath: 'id', autoIncrement: true });
+                        store;
 
-                    model.set("db", this.result);
+                    model.set("db", db);
+
+                    model.clearDB([model.get("DB_LEVELS_STORAGE")]);
+                    store = db.createObjectStore(model.get("DB_LEVELS_STORAGE"), { keyPath: 'id', autoIncrement: true });
+                    
                     safeFallback(this.result);
 
                     store.createIndex("by_index", "index", { unique: true });
@@ -144,6 +148,20 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                 };
 
                 return dfd;
+            },
+
+            clearDB: function (stores) {
+                var db = this.get("db");
+
+                if (!db) {
+                    return;
+                }
+
+                _.forEach(stores || db.objectStoreNames, function (storeName) {
+                    if (_.contains(db.objectStoreNames, storeName)) {
+                        db.deleteObjectStore(storeName);
+                    }
+                });
             },
 
             deleteDB: function () {
