@@ -14,8 +14,7 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                 DB_LEVELS_STORAGE: "levels",
                 url: "./js/levels.json",
                 levelsCount: null,
-                db: null,
-                encrypter: null
+                db: null
             },
 
             initDB: function () {
@@ -149,7 +148,14 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
 
             deleteDB: function () {
                 var dfd = new $.Deferred(),
-                    request = window.indexedDB.deleteDatabase(this.get("DB_NAME"));
+                    db = this.get("db"),
+                    request;
+
+                if (db) {
+                    db.close();
+                }
+                
+                request = window.indexedDB.deleteDatabase(this.get("DB_NAME"));
 
                 request.onsuccess = function (e) { dfd.resolve(); };
                 request.onerror = function (e) { dfd.reject(); };

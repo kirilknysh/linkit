@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "cryptojs-aes", "js/enum", "js/views/header", "js/models/dataAccessor"],
-    function(_, Backbone, $, CryptoJS, Enum, HeaderView, DataAccessor) {
+define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models/dataAccessor"],
+    function(_, Backbone, $, Enum, HeaderView, DataAccessor) {
         var game = {
                 eventsBus: _.extend({}, Backbone.Events),
                 db: null,
