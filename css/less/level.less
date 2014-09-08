@@ -1,0 +1,52 @@
+@import "variables";
+
+.view.level {
+    bottom: @footer-height;
+    top: @header-height;
+
+    .level-menu {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        width: @view-right-padding;
+        right: -@view-right-padding;
+
+        .button {
+            float: right;
+            box-sizing: border-box;
+            margin: @button-active-shadow-size;
+        }
+
+        .level-num {
+            font-size: 7vh;
+            height: 64px;
+            max-width: 64px;
+        }
+
+        .check-solution {
+            width: 64px;
+            height: 64px;
+            background: url('../img/check-level-button.png') no-repeat;
+
+            &:hover, &:active {
+                background-image: url('../img/check-level-button-active.png');
+            }
+        }
+    }
+
+    .basis, .targets {
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        height: 50%;
+    }
+
+    .basis {
+        bottom: 0px;
+        background: @azure-bg;
+    }
+    .targets {
+        top: 0px;
+        background: @links-color;
+    }
+}

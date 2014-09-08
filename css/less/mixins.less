@@ -1,3 +1,5 @@
+@import "variables";
+
 .vertical-align() {
     &:before {
         content: "";
@@ -14,11 +16,12 @@
 .button {
     color: @links-color;
     padding: 5px 20px;
+    cursor: pointer;
 
     &:hover {
-        box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 3px 1px;
+        box-shadow: rgba(0, 0, 0, 0.7) 0px 0px @button-active-shadow-size 1px;
     }
     &:active {
-        box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 3px 1px inset;
+        box-shadow: rgba(0, 0, 0, 0.7) 0px 0px @button-active-shadow-size 1px inset;
     }
 }

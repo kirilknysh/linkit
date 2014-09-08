@@ -2,8 +2,8 @@
 @import "animations";
 
 .view {
-    width: 80%;
-    left: 10%;
+    left: @view-left-padding;
+    right: @view-right-padding;
     position: absolute;
     margin: auto;
     -webkit-transform: translate3d(@view-outside-x-translation, 0px, 0px);
