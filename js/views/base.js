@@ -23,6 +23,10 @@ define(["lodash", "backbone", "jquery", "text!html/postRender.html"],
             },
 
             getTemplateData: function () {
+                if (this.model && _.isFunction(this.model.toJSON)) {
+                    return this.model.toJSON();
+                }
+
                 return {};
             },
 
