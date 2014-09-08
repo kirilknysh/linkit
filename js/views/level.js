@@ -1,8 +1,11 @@
-define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html"],
-    function (_, Backbone, BaseView, Game, LevelTemplate) {
+define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "text!html/target.html", "text!html/base.html"],
+    function (_, Backbone, BaseView, Game, LevelTemplate, TargetTemplate, BaseTemplate) {
         return BaseView.extend({
 
             template: _.template(LevelTemplate),
+            targetTemplate: _.template(TargetTemplate),
+            basisTemplate: _.template(BaseTemplate),
+
             tagName: "div",
 
             name: "level",
@@ -23,6 +26,17 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html"],
                 return Game.db.getLevel(this.levelIndex).then(function (level) {
                     view.model = level;
                 });
+            },
+
+            getTemplateData: function () {
+                var td = BaseView.prototype.getTemplateData.apply(this, arguments);
+
+                _.assign(td, {
+                    renderTargetItem: this.targetTemplate,
+                    renderBasisItem: this.basisTemplate
+                });
+
+                return td;
             },
 
             onCheckSolutionClick: function (e) {

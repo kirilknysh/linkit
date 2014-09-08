@@ -3,8 +3,12 @@
     <div class="check-solution button"></div>
 </div>
 <div class="targets">
-
+    <% _.forEach(targets, function(target) { %>
+        <%= renderTargetItem(target) %>
+    <% }); %>
 </div>
 <div class="basis">
-
+    <% _.forEach(basis, function(base) { %>
+        <%= renderBasisItem(base) %>
+    <% }); %>
 </div>

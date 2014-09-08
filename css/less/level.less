@@ -39,14 +39,27 @@
         left: 0px;
         right: 0px;
         height: 50%;
+        text-align: center;
     }
 
-    .basis {
-        bottom: 0px;
-        background: @azure-bg;
-    }
     .targets {
         top: 0px;
         background: @links-color;
+
+        .target {
+            width: 64px;
+            height: 64px;
+            display: inline-block;
+        }
+    }
+    .basis {
+        bottom: 0px;
+        background: @azure-bg;
+
+        .base {
+            width: 64px;
+            height: 128px;
+            display: inline-block;
+        }
     }
 }
