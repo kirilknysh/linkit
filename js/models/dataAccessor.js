@@ -34,7 +34,11 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                     safeFallback(this.result);
 
                     model.fetchLevelsCount().then(function (levelsCount) {
-                        dfd.resolve();
+                        if (levelsCount < 1) {
+                            model.fetchLevels().always(dfd.resolve);
+                        } else {
+                            dfd.resolve();
+                        }
                     }, function () {
                         //fail to get levels amount
                         dfd.reject();
@@ -54,16 +58,8 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
 
                     model.clearDB([model.get("DB_LEVELS_STORAGE")]);
                     store = db.createObjectStore(model.get("DB_LEVELS_STORAGE"), { keyPath: 'id', autoIncrement: true });
-                    
-                    safeFallback(this.result);
 
                     store.createIndex("by_index", "index", { unique: true });
-
-                    store.transaction.oncomplete = function (e) {
-                        //the DB has been just created; levels amount will always be 0
-                        model.set("levelsCount", 0);
-                        dfd.resolve();
-                    };
 
                     store.transaction.onerror = function (e) {
                         dfd.reject();
@@ -112,7 +108,6 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                                 .objectStore(model.get("DB_LEVELS_STORAGE"));
 
                         _.forEach(data.levels, function (level) {
-                            //TODO: encrypt solution
                             store.add(level);
                         });
                         model.set("levelsCount", data.levels.length);

@@ -1,6 +1,8 @@
 define(["lodash", "backbone", "jquery", "js/utils", "cryptojs-aes"],
     function (_, Backbone, $, Utils, CryptoJS) {
 
+        //To encrypt solution: CryptoJS.AES.encrypt("0-1::1-2::2-0", LEVELS_KEY_PHRASE).toString()
+
         var LEVELS_KEY_PHRASE = "encode Level$ secr3t",
             DEFAULT_MARGIN_LEFT = 1, DEFAULT_MARGIN_RIGHT = 1,
             STYLE_PATTERN = "margin-left: {marginLeft}; margin-right: {marginRight}; width: {width};";
