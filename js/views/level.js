@@ -43,6 +43,7 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
 
             show: function () {
                 $.when(BaseView.prototype.show.apply(this, arguments))
+                    .then(_.bind(this.initDragAreas, this))
                     .then(_.bind(this.initDropAreas, this));
             },
 
@@ -82,7 +83,7 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
         //===================================
 
         function onDragStart (e) {
-            e.dataTransfer.setData("text/html", e.currentTarget.id);
+            e.originalEvent.dataTransfer.setData("text/html", e.currentTarget.id);
         }
 
         function onDragEnter (e) {
@@ -100,8 +101,13 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
         }
 
         function onDrop (e) {
+            var targetId = e.originalEvent.dataTransfer.getData("text/html");
+
             e.preventDefault();
+            
             e.currentTarget.classList.remove('drag-over');
+
+            e.currentTarget.dataset.linkedTargetId = targetId;
         }
 
         return LevelView;
