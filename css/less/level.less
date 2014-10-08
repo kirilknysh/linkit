@@ -45,16 +45,16 @@
 
     .targets {
         top: 0px;
-        background: @links-color;
         font-size: 0;
         padding-top: 1%;
 
         .target {
             font-size: 1.5vh;
-            height: 46%;
+            height: @level-base-height / 2;
             display: inline-block;
-            border: 1px solid #000;
             box-sizing: border-box;
+            background: @white-color;
+            box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 3px 1px;
         }
     }
     .basis {
@@ -63,8 +63,7 @@
         font-size: 0;
 
         .base {
-            width: 64px;
-            height: 92%;
+            height: @level-base-height;
             display: inline-block;
             font-size: 1.5vh;
             border: 1px solid #000;
