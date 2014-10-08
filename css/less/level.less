@@ -53,25 +53,28 @@
             height: @level-base-height / 2;
             display: inline-block;
             box-sizing: border-box;
-            background: @white-color;
+            background: @links-color;
             box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 3px 1px;
         }
     }
     .basis {
         bottom: 0px;
-        background: @azure-bg;
         font-size: 0;
 
         .base {
             height: @level-base-height;
             display: inline-block;
             font-size: 1.5vh;
-            border: 1px solid #000;
             box-sizing: border-box;
+            background: @azure-bg;
 
             .drop-area {
                 height: 50%;
-                background: #0f0;
+                background: @white-color;
+
+                &.drag-over {
+                    box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 20px 0px inset;
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "text!html/target.html", "text!html/base.html"],
     function (_, Backbone, BaseView, Game, LevelTemplate, TargetTemplate, BaseTemplate) {
-        return BaseView.extend({
+        var LevelView;
+
+        LevelView = BaseView.extend({
 
             template: _.template(LevelTemplate),
             targetTemplate: _.template(TargetTemplate),
@@ -39,8 +41,26 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
                 return td;
             },
 
+            show: function () {
+                $.when(BaseView.prototype.show.apply(this, arguments))
+                    .then(_.bind(this.initDropAreas, this));
+            },
+
             onCheckSolutionClick: function (e) {
                 alert(this.validatelevel(this.getLevelSolution()));
+            },
+
+            initDropAreas: function () {
+                this.$el.find(".drop-area")
+                    .on("dragenter", onDragEnter)
+                    .on("dragover", onDragOver)
+                    .on("dragleave", onDragLeave)
+                    .on("drop", onDrop);
+            },
+
+            initDragAreas: function () {
+                this.$el.find(".drag-area")
+                    .on("dragstart", onDragStart);
             },
 
             getLevelSolution: function () {
@@ -56,4 +76,33 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
             }
 
         });
+
+        //===================================
+        //==========  Drag'n'Drop  ==========
+        //===================================
+
+        function onDragStart (e) {
+            e.dataTransfer.setData("text/html", e.currentTarget.id);
+        }
+
+        function onDragEnter (e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function onDragOver (e) {
+            e.preventDefault();
+        }
+
+        function onDragLeave (e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function onDrop (e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        return LevelView;
 });
