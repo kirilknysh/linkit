@@ -46,21 +46,28 @@
     .targets {
         top: 0px;
         background: @links-color;
+        font-size: 0;
 
         .target {
-            width: 64px;
-            height: 64px;
+            font-size: 1.5vh;
+            height: 46%;
             display: inline-block;
         }
     }
     .basis {
         bottom: 0px;
         background: @azure-bg;
+        font-size: 0;
 
         .base {
             width: 64px;
-            height: 128px;
+            height: 92%;
             display: inline-block;
+            font-size: 1.5vh;
+
+            .drop-area {
+                height: 50%;
+            }
         }
     }
 }
