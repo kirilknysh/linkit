@@ -47,16 +47,17 @@
         top: 0px;
         font-size: 0;
         padding-top: 1%;
-
-        .target {
-            font-size: 1.5vh;
-            height: @level-base-height / 2;
-            display: inline-block;
-            box-sizing: border-box;
-            background: @links-color;
-            box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 3px 1px;
-        }
     }
+
+    .target {
+        font-size: 1.5vh;
+        height: @level-base-height / 2;
+        display: inline-block;
+        box-sizing: border-box;
+        background: @links-color;
+        box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 3px 1px;
+    }
+
     .basis {
         bottom: 0px;
         font-size: 0;
@@ -71,6 +72,18 @@
             .drop-area {
                 height: 50%;
                 background: @white-color;
+
+                .drop-placeholder {
+                    position: absolute;
+                    opacity: 0.5;
+                }
+
+                .target {
+                    width: 100%;
+                    height: 100%;
+                    box-shadow: none;
+                    margin: 0;
+                }
 
                 &.drag-over {
                     box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 20px 0px inset;

@@ -65,11 +65,16 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
             },
 
             getLevelSolution: function () {
-                return {
-                    "0": "1",
-                    "1": "2",
-                    "2": "0"
-                };
+                var solution = {};
+
+                this.$el.find(".base").each(function (index, base) {
+                    var dropArea = base.getElementsByClassName("drop-area")[0];
+                    if (dropArea) {
+                        solution[base.id] = dropArea.dataset.linkedTargetId || "";
+                    }
+                });
+                
+                return solution;
             },
 
             validatelevel: function (solution) {
@@ -101,13 +106,15 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
         }
 
         function onDrop (e) {
-            var targetId = e.originalEvent.dataTransfer.getData("text/html");
+            var targetId = e.originalEvent.dataTransfer.getData("text/html"),
+                target = document.getElementById(targetId);
 
             e.preventDefault();
             
             e.currentTarget.classList.remove('drag-over');
-
             e.currentTarget.dataset.linkedTargetId = targetId;
+            target.removeAttribute('style');//TODO: a very hard way to clear styling
+            e.currentTarget.appendChild(target);
         }
 
         return LevelView;
