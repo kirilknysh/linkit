@@ -92,6 +92,7 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
         }
 
         function onDragEnter (e) {
+        console.log("==== " + e.currentTarget);
             e.preventDefault();
             e.currentTarget.classList.add('drag-over');
         }
