@@ -107,13 +107,25 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
 
         function onDrop (e) {
             var targetId = e.originalEvent.dataTransfer.getData("text/html"),
-                target = document.getElementById(targetId);
+                target = document.getElementById(targetId),
+                pastBase;
 
             e.preventDefault();
             
             e.currentTarget.classList.remove('drag-over');
-            e.currentTarget.dataset.linkedTargetId = targetId;
-            target.removeAttribute('style');//TODO: a very hard way to clear styling
+            if (_.has(e.currentTarget.dataset, "dropAreaBase")) {
+                // if drop to base
+                e.currentTarget.dataset.linkedTargetId = targetId;
+                e.currentTarget.classList.add("occupied");
+            } else {
+                // if drop back to targets
+                pastBase = $(target).closest("[data-drop-area-base]")[0];
+                if (pastBase) {
+                    pastBase.dataset.linkedTargetId = "";
+                    pastBase.classList.remove("occupied");
+                }
+            }
+            
             e.currentTarget.appendChild(target);
         }
 

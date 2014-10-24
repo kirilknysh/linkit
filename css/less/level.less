@@ -49,6 +49,10 @@
         top: 0px;
         font-size: 0;
         padding-top: 1%;
+
+        &.drag-over {
+            box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 20px 0px inset;
+        }
     }
 
     .target {
@@ -81,14 +85,20 @@
                 }
 
                 .target {
-                    width: 100%;
-                    height: 100%;
+                    width: 100%!important;
+                    height: 100%!important;
                     box-shadow: none;
-                    margin: 0;
+                    margin: 0!important;
                 }
 
                 &.drag-over {
                     box-shadow: rgba(0, 0, 0, 0.7) 0px 0px 20px 0px inset;
+                }
+
+                &.occupied {
+                    .drop-placeholder {
+                        opacity: 0;
+                    }
                 }
             }
         }
