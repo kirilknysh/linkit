@@ -1,0 +1,20 @@
+@import "mixins";
+
+.item {
+    font-size: 2vh;
+    overflow: hidden;
+
+    &.text {
+        &.x-large {
+            font-size: 4vh;
+        }
+        &.xx-large {
+            font-size: 7vh;
+        }
+        &.xxx-large {
+            font-size: 10vh;
+
+            .vertical-align();
+        }
+    }
+}

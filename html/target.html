@@ -1,1 +1,7 @@
-<div class="target drag-area" style="${style}" draggable="true" id="${id}">${data}</div>
+<div class="item target drag-area ${dataType} ${settings.cssClass}" style="${style}" draggable="true" id="${id}">
+    <% if (dataType === "text") { %>
+        ${data}
+    <% } else if (dataType === "image") { %>
+        <img alt="image here" />
+    <% } %>
+</div>

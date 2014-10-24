@@ -14,6 +14,11 @@ define(["lodash"],
                 "LOADING": "loading",
                 "READY": "ready",
                 "IN_PROGRESS": "inprogress"
+            },
+
+            "ItemDataType": {
+                "TEXT": "text",
+                "IMAGE": "image"
             }
         });
 
