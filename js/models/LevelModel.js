@@ -18,8 +18,8 @@ define(["lodash", "backbone", "jquery", "js/utils", "cryptojs-aes"],
 
             init: function(level) {
                 this.set("index", level.index);
-                this.set("basis", level.basis);
-                this.set("targets", level.targets);
+                this.set("basis", _.shuffle(level.basis));
+                this.set("targets", _.shuffle(level.targets));
                 this.set("solution", CryptoJS.AES.decrypt(level.solution, LEVELS_KEY_PHRASE).toString(CryptoJS.enc.Utf8));
                 this.setStyles(level.basis.length, level.targets.length);
 
