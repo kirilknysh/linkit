@@ -2,26 +2,26 @@
     "levels": [{
         "index": 1,
         "basis": [
-            { "id": "basis.1.0", "imgUrl": "img/b0.png" },
-            { "id": "basis.1.1", "imgUrl": "img/b1.png"},
-            { "id": "basis.1.2", "imgUrl": "img/b2.png"}
+            { "id": "basis.1.0", "data": "1+1" },
+            { "id": "basis.1.1", "data": "4*4"},
+            { "id": "basis.1.2", "data": "6/2"}
         ],
         "targets": [
-            { "id": "target.1.0", "imgUrl": "img/t0.png" },
-            { "id": "target.1.1", "imgUrl": "img/t1.png"},
-            { "id": "target.1.2", "imgUrl": "img/t2.png"}
+            { "id": "target.1.0", "data": "3" },
+            { "id": "target.1.1", "data": "2"},
+            { "id": "target.1.2", "data": "16"}
         ],
         "solution": "U2FsdGVkX18w/FGihzDXi3VkamSOOsZKyNKkFrJcswEg/zQCQU3bq5yVYqD1kow3LVzSMw+sWLEAJ9DlSbEE8916YqPxhf+hLz78v7M7zpS9Kxm+5d1UPYHotRDsDa5b"
     }, {
         "index": 2,
         "basis": [
-            { "id": "basis.2.0", "imgUrl": "img/b3.png" },
-            { "id": "basis.2.1", "imgUrl": "img/b4.png"}
+            { "id": "basis.2.0", "data": "a b c " },
+            { "id": "basis.2.1", "data": "k l m "}
         ],
         "targets": [
-            { "id": "target.2.0", "imgUrl": "img/t3.png" },
-            { "id": "target.2.1", "imgUrl": "img/t4.png"}
+            { "id": "target.2.0", "data": "n" },
+            { "id": "target.2.1", "data": "d"}
         ],
-        "solution": "U2FsdGVkX1+W2MYPNYklvaftSmok3jm2sw6R0FohQhC4YvHl6e7HMhRbe3SAyG3+N3JF2b8tEWEB9+C/l8U59g=="
+        "solution": "U2FsdGVkX1+idhatdKawKebda4taMoAR851pkJhho18BwAivtg65DvEBy/CGZP+guKt3hMJKu45BU8PVn63ylQ=="
     }]
 }

@@ -105,14 +105,23 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
 
                         var db = model.get("db"),
                             store = db.transaction(model.get("DB_LEVELS_STORAGE"), "readwrite")
-                                .objectStore(model.get("DB_LEVELS_STORAGE"));
+                                .objectStore(model.get("DB_LEVELS_STORAGE")),
+                            levelsCount = data.levels.length,
+                            levelIdx = 0;
 
-                        _.forEach(data.levels, function (level) {
-                            store.add(level);
-                        });
-                        model.set("levelsCount", data.levels.length);
+                        store.transaction.oncomplete = dfd.resolve;
+                        store.transaction.onerror = dfd.reject;
 
-                        dfd.resolve();
+                        function addItem() {
+                            if (levelIdx < levelsCount) {
+                                store.add(data.levels[levelIdx]).onsuccess = addItem;
+                                levelIdx++;
+                            } else {
+                                model.set("levelsCount", levelsCount);
+                            }
+                        }
+
+                        addItem();
                     }, function (e) {
                         dfd.reject();
                     });
@@ -170,8 +179,8 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                 
                 request = window.indexedDB.deleteDatabase(this.get("DB_NAME"));
 
-                request.onsuccess = function (e) { dfd.resolve(); };
-                request.onerror = function (e) { dfd.reject(); };
+                request.onsuccess = dfd.resolve;
+                request.onerror = dfd.reject;
 
                 return dfd;
             }
