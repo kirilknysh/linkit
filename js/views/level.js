@@ -113,17 +113,18 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
             e.preventDefault();
             
             e.currentTarget.classList.remove('drag-over');
+
+            // if drop to base
             if (_.has(e.currentTarget.dataset, "dropAreaBase")) {
-                // if drop to base
                 e.currentTarget.dataset.linkedTargetId = targetId;
                 e.currentTarget.classList.add("occupied");
-            } else {
-                // if drop back to targets
-                pastBase = $(target).closest("[data-drop-area-base]")[0];
-                if (pastBase) {
-                    pastBase.dataset.linkedTargetId = "";
-                    pastBase.classList.remove("occupied");
-                }
+            }
+            
+            // if drop back from base
+            pastBase = $(target).closest("[data-drop-area-base]")[0];
+            if (pastBase) {
+                pastBase.dataset.linkedTargetId = "";
+                pastBase.classList.remove("occupied");
             }
             
             e.currentTarget.appendChild(target);
