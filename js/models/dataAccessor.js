@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
-    function (_, Backbone, $, LevelsPool) { 
+define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum"],
+    function (_, Backbone, $, LevelsPool, Enum) { 
 
         /*
          * General rules:
@@ -104,20 +104,24 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                         }
 
                         var db = model.get("db"),
-                            store = db.transaction(model.get("DB_LEVELS_STORAGE"), "readwrite")
-                                .objectStore(model.get("DB_LEVELS_STORAGE")),
                             levelsCount = data.levels.length,
                             levelIdx = 0;
 
-                        store.transaction.oncomplete = dfd.resolve;
-                        store.transaction.onerror = dfd.reject;
-
                         function addItem() {
                             if (levelIdx < levelsCount) {
-                                store.add(data.levels[levelIdx]).onsuccess = addItem;
-                                levelIdx++;
+                                $.when(model.loadImages(data.levels[levelIdx])).always(function (level) {
+                                    var store = db.transaction(model.get("DB_LEVELS_STORAGE"), "readwrite")
+                                        .objectStore(model.get("DB_LEVELS_STORAGE"));
+
+                                    store.transaction.oncomplete = addItem;
+                                    store.transaction.onerror = dfd.reject;
+
+                                    store.add(level);
+                                    levelIdx++;
+                                });
                             } else {
                                 model.set("levelsCount", levelsCount);
+                                dfd.resolve();
                             }
                         }
 
@@ -125,6 +129,47 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool"],
                     }, function (e) {
                         dfd.reject();
                     });
+
+                return dfd;
+            },
+
+            loadImages: function (level) {
+                var model = this,
+                    dfd = new $.Deferred(),
+                    imgRequests = [];
+
+                _.forEach(level.basis, function (base) {
+                    if (base.dataType === Enum.ItemDataType.IMAGE) {
+                        imgRequests.push(model.loadImage(base));
+                    }
+                });
+                _.forEach(level.targets, function (target) {
+                    if (target.dataType === Enum.ItemDataType.IMAGE) {
+                        imgRequests.push(model.loadImage(target));
+                    }
+                });
+
+                $.when.apply($, imgRequests).always(_.bind(dfd.resolve, dfd, level));
+
+                return dfd;
+            },
+
+            loadImage: function (item) {
+                var dfd = new $.Deferred(),
+                    xhr = new XMLHttpRequest();
+                 
+                xhr.open("GET", item.data, true);
+                xhr.responseType = "blob";
+                 
+                xhr.addEventListener("load", function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            item.data = xhr.response;
+                        }
+                        dfd.resolve();
+                    }
+                }, false);
+                xhr.send();
 
                 return dfd;
             },
