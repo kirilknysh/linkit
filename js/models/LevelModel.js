@@ -1,7 +1,7 @@
-define(["lodash", "backbone", "jquery", "js/utils", "cryptojs-aes"],
-    function (_, Backbone, $, Utils, CryptoJS) {
+define(["lodash", "backbone", "jquery", "js/utils", "js/enum", "cryptojs-aes"],
+    function (_, Backbone, $, Utils, Enum, CryptoJS) {
 
-        //To encrypt solution: CryptoJS.AES.encrypt("0-1::1-2::2-0", LEVELS_KEY_PHRASE).toString()
+        //To encrypt solution: CryptoJS.AES.encrypt("basis.1.0-target.1.1::basis.1.1-target.1.2", LEVELS_KEY_PHRASE).toString()
 
         var LEVELS_KEY_PHRASE = "encode Level$ secr3t",
             DEFAULT_MARGIN_LEFT = 1, DEFAULT_MARGIN_RIGHT = 1,
@@ -17,6 +17,18 @@ define(["lodash", "backbone", "jquery", "js/utils", "cryptojs-aes"],
             },
 
             init: function(level) {
+                var URL = window.URL || window.webkitURL;
+
+                _.forEach(level.basis, function (base) {
+                    if (base.dataType === Enum.ItemDataType.IMAGE) {
+                        base.data = URL.createObjectURL(base.data);
+                    }
+                });
+                _.forEach(level.targets, function (target) {
+                    if (target.dataType === Enum.ItemDataType.IMAGE) {
+                        target.data = URL.createObjectURL(target.data);
+                    }
+                });
                 this.set("index", level.index);
                 this.set("basis", _.shuffle(level.basis));
                 this.set("targets", _.shuffle(level.targets));
