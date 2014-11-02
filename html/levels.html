@@ -1,3 +1,8 @@
 <% _.forEach(levels, function(level) { %>
-    <div class="level-button button" data-level-num="${level.index}"><%- level.index %></div>
+    <% if (level.available) { %>
+        <div class="level-button button" data-level-num="${level.index}"><%- level.index %></div>
+    <% } else { %>
+        <div class="level-button disabled" data-level-num="${level.index}"><%- level.index %></div>
+    <% } %> 
+    
 <% }); %>

@@ -13,7 +13,8 @@ define(["lodash", "backbone", "jquery", "js/utils", "js/enum", "cryptojs-aes"],
                 index: 0,
                 basis: null,
                 targets: null,
-                solution: null
+                solution: null,
+                available: true
             },
 
             init: function(level) {

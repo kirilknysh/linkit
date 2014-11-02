@@ -11,7 +11,7 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsCollecti
             name: "levels",
 
             events: {
-                "click .level-button": "onLevelButtonClick"
+                "click .level-button.button": "onLevelButtonClick"
             },
 
             initialize: function () {
