@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "js/views/level", "js/views/error", "js/views/oldBrowserError"],
-    function (_, Backbone, $, Game, Enum, WelcomeView, LevelView, ErrorView, OldBrowserErrorView) {
+define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "js/views/level", "js/views/levels", "js/views/error", "js/views/oldBrowserError"],
+    function (_, Backbone, $, Game, Enum, WelcomeView, LevelView, LevelsView, ErrorView, OldBrowserErrorView) {
         var router = Backbone.Router.extend({
 
             currentView: null,
@@ -9,6 +9,7 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
                 "": "setDefault",
                 "welcome": "welcome",
                 "error(/:errorType)": "error",
+                "levels": "levels",
                 "level/:number": "level"
             },
 
@@ -48,6 +49,14 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
                 Game.onInitialize(_.bind(function () {
                     this.hideCurrentView();
                     this.showView(LevelView, number);
+                }, this));
+            },
+
+            levels: function () {
+                //to navigate to level a fully initialized game is required
+                Game.onInitialize(_.bind(function () {
+                    this.hideCurrentView();
+                    this.showView(LevelsView);
                 }, this));
             },
 
