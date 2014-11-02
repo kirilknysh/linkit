@@ -178,6 +178,37 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum"],
                 return this.get("levelsCount") || 0;
             },
 
+            getAllLevels: function () {
+                var dfd = new $.Deferred(),
+                    db = this.get("db"),
+                    levels = [],
+                    objectStore, objectCursor;
+
+                objectStore = db.transaction(this.get("DB_LEVELS_STORAGE"), "readonly")
+                        .objectStore(this.get("DB_LEVELS_STORAGE"));
+
+                objectCursor = objectStore.openCursor();
+                
+                objectCursor.onsuccess = function (e) {
+                    var cursor = e.target.result,
+                        level;
+
+                    if (cursor) {
+                        level = cursor.value;
+                        levels.push(LevelsPool.get().init(level));
+                        cursor.continue();
+                    } else {
+                        dfd.resolve(levels);
+                    }
+                };
+
+                objectCursor.onerror = function () {
+                    dfd.reject();
+                };
+
+                return dfd;
+            },
+
             fetchLevelsCount: function () {
                 var dfd = new $.Deferred(),
                     db = this.get("db"),
