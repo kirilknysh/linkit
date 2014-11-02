@@ -30,7 +30,11 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
                 this.initializeDB()
                     .done(function () {
                         game.status = Enum.GameStatus.READY;
-                        game.initializeDfd.resolve();
+                        game.initializeUser().then(function (user) {
+                            game.db.saveCurrentUserName(user.get("name"));
+                            game.eventsBus.trigger("levels.loaded");
+                            game.initializeDfd.resolve();
+                        });
                     })
                     .fail(function () {
                         return router.navigate("error/" + Enum.GameErrorTypes.NO_LEVELS_LOADED, { trigger: true });
@@ -58,15 +62,17 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
             initializeDB: function () {
                 return this.db.initDB()
                     .then(function () {
-                        if (game.db.getLevelsCount() > 0) {
-                            game.eventsBus.trigger("levels.loaded");
-                        } else {
+                        if (game.db.getLevelsCount() < 1) {
                             //no levels - let's try to load them!
                             return game.db.fetchLevels().then(function () {
                                 game.eventsBus.trigger("levels.loaded");
                             });
                         }
                     });
+            },
+
+            initializeUser: function () {
+                return this.db.initUser(this.db.getCurrentUserName());
             }
         });
 

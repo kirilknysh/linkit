@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum"],
-    function (_, Backbone, $, LevelsPool, Enum) { 
+define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/models/UserModel"],
+    function (_, Backbone, $, LevelsPool, Enum, UserModel) { 
 
         /*
          * General rules:
@@ -10,8 +10,10 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum"],
 
             defaults: {
                 DB_NAME: "LinkItDB",
-                DB_VERSION: 1,
+                DB_VERSION: 8,
                 DB_LEVELS_STORAGE: "levels",
+                DB_USERS_STORAGE: "users",
+                DB_USER_ID_KEY: "userId",
                 url: "./js/levels.json",
                 levelsCount: null,
                 db: null
@@ -52,12 +54,16 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum"],
 
                 request.onupgradeneeded = function (e) {
                     var db = this.result,
-                        store;
+                        store, userStore;
 
                     model.set("db", db);
 
                     model.clearDB([model.get("DB_LEVELS_STORAGE")]);
                     store = db.createObjectStore(model.get("DB_LEVELS_STORAGE"), { keyPath: 'id', autoIncrement: true });
+
+                    if (!_.contains(db.objectStoreNames, model.get("DB_USERS_STORAGE"))) {
+                        userStore = db.createObjectStore(model.get("DB_USERS_STORAGE"), { keyPath: 'name' });
+                    }
 
                     store.createIndex("by_index", "index", { unique: true });
 
@@ -67,6 +73,61 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum"],
                 };
 
                 return dfd;
+            },
+
+            initUser: function (name) {
+                var model = this,
+                    dfd = new $.Deferred(),
+                    db = this.get("db"),
+                    userStore;
+
+                userStore = db.transaction(this.get("DB_USERS_STORAGE"), "readonly")
+                    .objectStore(this.get("DB_USERS_STORAGE"));
+
+                //TODO: review!!! not working!!!
+                userStore.get(name || "");
+
+                userStore.transaction.oncomplete = function (e) {
+                    var user = e.target.result,
+                        userStore;
+
+                    if (user) {
+                        //new UserModel
+                        dfd.resolve();
+                    } else {
+                        userStore = db.transaction(model.get("DB_USERS_STORAGE"), "readwrite")
+                            .objectStore(model.get("DB_USERS_STORAGE"));
+
+                        user = model.getDefaultUser();
+                        userStore.add(user);
+
+                        userStore.transaction.oncomplete = function (e) {
+                            dfd.resolve(new UserModel(user));
+                        };
+                        userStore.transaction.onerror = function () {
+                            dfd.reject();
+                        };
+                    }
+                };
+                userStore.transaction.onerror = function () {
+                    dfd.reject();
+                };
+
+                return dfd;
+            },
+
+            getDefaultUser: function () {
+                return { name: "user" + _.random(Number.MAX_SAFE_INTEGER), activeLevel: 1 };
+            },
+
+            getCurrentUserName: function () {
+                return window.localStorage.getItem(this.get("DB_USER_ID_KEY"));
+            },
+
+            saveCurrentUserName: function (userId) {
+                if (userId && _.isString(userId)) {
+                    window.localStorage.setItem(this.get("DB_USER_ID_KEY"), userId);
+                }
             },
 
             getLevel: function (index) {
