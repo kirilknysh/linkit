@@ -13,7 +13,8 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
             name: "level",
 
             events: {
-                "click .check-solution": "onCheckSolutionClick"
+                "click .check-solution": "onCheckSolutionClick",
+                "click .level-num.button": "onLevelNumClick"
             },
 
             initialize: function (index) {
@@ -49,6 +50,10 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
 
             onCheckSolutionClick: function (e) {
                 alert(this.validatelevel(this.getLevelSolution()));
+            },
+
+            onLevelNumClick: function (e) {
+                Game.router.navigate("levels", { trigger: true });
             },
 
             initDropAreas: function () {

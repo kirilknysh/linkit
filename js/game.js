@@ -3,6 +3,7 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
         var game = {
                 eventsBus: _.extend({}, Backbone.Events),
                 db: null,
+                router: null,
                 status: Enum.GameStatus.LOADING,
                 initializeDfd: new $.Deferred()
             };
@@ -12,6 +13,8 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
 
             initialize: function (router) {
                 var header = new HeaderView({ el: $("#header").get(0) });
+
+                this.router = router;
 
                 this.printVersionInfo();
 

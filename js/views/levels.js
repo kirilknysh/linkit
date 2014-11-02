@@ -10,7 +10,15 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsCollecti
 
             name: "levels",
 
-            model: new LevelsCollection(),
+            events: {
+                "click .level-button": "onLevelButtonClick"
+            },
+
+            initialize: function () {
+                BaseView.prototype.initialize.apply(this, arguments);
+
+                this.model = new LevelsCollection();
+            },
 
             prepareData: function () {
                 var view = this;
@@ -22,6 +30,17 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsCollecti
 
             getTemplateData: function () {
                 return { levels: this.model.getJSONLevels() };
+            },
+
+            onLevelButtonClick: function (e) {
+                var levelNumStr = e.target.dataset.levelNum,
+                    levelNum = parseInt(levelNumStr, 10);
+
+                if (!_.isNumber(levelNum)) {
+                    return;
+                }
+
+                Game.router.navigate("level/" + levelNum, { trigger: true });
             }
 
         });

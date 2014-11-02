@@ -1,1 +1,3 @@
-<% _.forEach(levels, function(level) { %> <div><%- level.index %></div> <% }); %>
+<% _.forEach(levels, function(level) { %>
+    <div class="level-button button" data-level-num="${level.index}"><%- level.index %></div>
+<% }); %>
