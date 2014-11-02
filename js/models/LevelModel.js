@@ -17,7 +17,8 @@ define(["lodash", "backbone", "jquery", "js/utils", "js/enum", "cryptojs-aes"],
             },
 
             init: function(level) {
-                var URL = window.URL || window.webkitURL;
+                var URL = window.URL || window.webkitURL,
+                    solutionStr = "", solution;
 
                 _.forEach(level.basis, function (base) {
                     if (base.dataType === Enum.ItemDataType.IMAGE) {
@@ -29,19 +30,29 @@ define(["lodash", "backbone", "jquery", "js/utils", "js/enum", "cryptojs-aes"],
                         target.data = URL.createObjectURL(target.data);
                     }
                 });
+
+                solutionStr = CryptoJS.AES.decrypt(level.solution, LEVELS_KEY_PHRASE).toString(CryptoJS.enc.Utf8);
+                solution = Utils.levels.parseSolution(solutionStr);
+
                 this.set("index", level.index);
                 this.set("basis", _.shuffle(level.basis));
                 this.set("targets", _.shuffle(level.targets));
-                this.set("solution", CryptoJS.AES.decrypt(level.solution, LEVELS_KEY_PHRASE).toString(CryptoJS.enc.Utf8));
+                this.set("solution", solution);
                 this.setStyles(level.basis.length, level.targets.length);
 
                 return this;
             },
 
             checkSolution: function (solution) {
-                var solutionStr = Utils.levels.stringifySolution(solution);
+                var valid = true,
+                    levelSolution = this.get("solution");
 
-                return this.get("solution") === solutionStr;
+                _.forEach(solution, function (targetId, baseId) {
+                    valid = levelSolution[baseId] === targetId;
+                    return valid;
+                });
+
+                return valid;
             },
 
             setStyles: function (basisCount, targetsCount) {

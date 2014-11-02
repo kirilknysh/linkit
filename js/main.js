@@ -30,4 +30,6 @@ require(["backbone", "game", "router"], function (Backbone, Game, Router) {
     Backbone.history.start();
 
     Game.initialize(router);
+
+    window.g = Game;
 });
