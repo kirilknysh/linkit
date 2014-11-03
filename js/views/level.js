@@ -121,6 +121,11 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
 
             // if drop to base
             if (_.has(e.currentTarget.dataset, "dropAreaBase")) {
+                if (e.currentTarget.dataset.linkedTargetId) {
+                    //base already has target inside
+                    return;
+                }
+
                 e.currentTarget.dataset.linkedTargetId = targetId;
                 e.currentTarget.classList.add("occupied");
             }
