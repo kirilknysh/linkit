@@ -6,6 +6,10 @@ define(["lodash", "backbone", "text!html/header.html"],
 
             name: "header",
 
+            events: {
+                "click h1": "onHeaderClick"
+            },
+
             render: function () {
                 this.$el.html(this.template());
 
@@ -16,6 +20,11 @@ define(["lodash", "backbone", "text!html/header.html"],
 
             toggleInstructions: function (show) {
                 this.$instructions.toggleClass("nintja", !show);
+            },
+
+            onHeaderClick: function () {
+                window.location.hash = "#welcome";
             }
+
         });
 });
