@@ -62,7 +62,7 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                     store = db.createObjectStore(model.get("DB_LEVELS_STORAGE"), { keyPath: 'id', autoIncrement: true });
 
                     if (!_.contains(db.objectStoreNames, model.get("DB_USERS_STORAGE"))) {
-                        userStore = db.createObjectStore(model.get("DB_USERS_STORAGE"), { keyPath: 'name' });
+                        userStore = db.createObjectStore(model.get("DB_USERS_STORAGE"), { keyPath: 'name', autoIncrement: true });
                     }
 
                     store.createIndex("by_index", "index", { unique: true });
@@ -79,21 +79,23 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                 var model = this,
                     dfd = new $.Deferred(),
                     db = this.get("db"),
-                    userStore;
+                    userStore, request;
 
                 userStore = db.transaction(this.get("DB_USERS_STORAGE"), "readonly")
                     .objectStore(this.get("DB_USERS_STORAGE"));
 
-                //TODO: review!!! not working!!!
-                userStore.get(name || "");
+                request = userStore.get(name || "");
 
-                userStore.transaction.oncomplete = function (e) {
+                request.onerror = function (e) {
+                    dfd.reject();
+                };
+
+                request.onsuccess = function (e) {
                     var user = e.target.result,
                         userStore;
 
                     if (user) {
-                        //new UserModel
-                        dfd.resolve();
+                        dfd.resolve(new UserModel(user));
                     } else {
                         userStore = db.transaction(model.get("DB_USERS_STORAGE"), "readwrite")
                             .objectStore(model.get("DB_USERS_STORAGE"));
@@ -108,9 +110,6 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                             dfd.reject();
                         };
                     }
-                };
-                userStore.transaction.onerror = function () {
-                    dfd.reject();
                 };
 
                 return dfd;
