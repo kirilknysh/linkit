@@ -47,8 +47,7 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
             level: function (number) {
                 //to navigate to level a fully initialized game is required
                 Game.onInitialize(_.bind(function () {
-                    this.hideCurrentView();
-                    this.showView(LevelView, number);
+                    Game.navigateToLevel(~~number);
                 }, this));
             },
 
@@ -115,6 +114,10 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
                 });
 
                 return dfd;
+            },
+
+            showLevelView: function (levelNum) {
+                return this.showView(LevelView, levelNum);
             }
 
         });

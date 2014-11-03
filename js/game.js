@@ -73,6 +73,22 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
 
             initializeUser: function () {
                 return this.db.initUser(this.db.getCurrentUserName());
+            },
+
+            navigateToLevel: function (levelNum) {
+                var router = this.router;
+
+                return this.db.getCurrentUserActiveLevel().then(function (activeLevel) {
+                    if (levelNum <= activeLevel) {
+                        router.hideCurrentView();
+                        router.navigate("level/" + levelNum);
+                        return router.showLevelView(levelNum);
+                    } else {
+                        return router.navigate("error/" + Enum.GameErrorTypes.PAGE_NOT_FOUND, { trigger: true });
+                    }
+                }, function (e) {
+                    return router.navigate("error/" + Enum.GameErrorTypes.USER_ERROR, { trigger: true });
+                });
             }
         });
 

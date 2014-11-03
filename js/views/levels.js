@@ -40,7 +40,7 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsCollecti
                     return;
                 }
 
-                Game.router.navigate("level/" + levelNum, { trigger: true });
+                Game.navigateToLevel(levelNum);
             }
 
         });

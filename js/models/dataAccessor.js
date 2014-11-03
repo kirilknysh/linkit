@@ -115,6 +115,27 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                 return dfd;
             },
 
+            getCurrentUser: function () {
+                var dfd = new $.Deferred(),
+                    db = this.get("db"),
+                    userRequest;
+
+                userRequest = db.transaction(this.get("DB_USERS_STORAGE"), "readonly")
+                    .objectStore(this.get("DB_USERS_STORAGE")).get(this.getCurrentUserName());
+
+                userRequest.onerror = function (e) {
+                    dfd.reject({ code: Enum.GameErrorTypes.USER_ERROR });
+                };
+
+                userRequest.onsuccess = function (e) {
+                    var user = e.target.result;
+
+                    dfd.resolve(new UserModel(user));
+                };
+
+                return dfd;
+            },
+
             getDefaultUser: function () {
                 return { name: "user" + _.random(Number.MAX_SAFE_INTEGER), activeLevel: 1 };
             },
@@ -127,6 +148,12 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                 if (userId && _.isString(userId)) {
                     window.localStorage.setItem(this.get("DB_USER_ID_KEY"), userId);
                 }
+            },
+
+            getCurrentUserActiveLevel: function () {
+                return this.getCurrentUser().then(function (user) {
+                    return user.get("activeLevel");
+                });
             },
 
             getLevel: function (index) {
@@ -245,31 +272,24 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
             },
 
             getAllLevels: function () {
-                var dfd = new $.Deferred(),
-                    db = this.get("db"),
-                    model = this,
-                    levels = [],
-                    userStore, userRequest;
+                var model = this;
 
-                userStore = db.transaction(this.get("DB_USERS_STORAGE"), "readonly")
-                    .objectStore(this.get("DB_USERS_STORAGE"));
-
-                userRequest = userStore.get(this.getCurrentUserName());
-
-                userRequest.onsuccess = function (e) {
-                    var user = e.target.result,
+                return this.getCurrentUserActiveLevel().then(function (activeLevel) {
+                    var dfd = new $.Deferred(),
+                        db = model.get("db"),
+                        levels = [],
                         objectCursor;
 
                     objectCursor = db.transaction(model.get("DB_LEVELS_STORAGE"), "readonly")
                         .objectStore(model.get("DB_LEVELS_STORAGE")).openCursor();
-                
+
                     objectCursor.onsuccess = function (e) {
                         var cursor = e.target.result,
                             level;
 
                         if (cursor) {
                             level = cursor.value;
-                            level.available = level.index <= user.activeLevel;
+                            level.available = level.index <= activeLevel;
                             levels.push(LevelsPool.get().init(level));
                             cursor.continue();
                         } else {
@@ -280,12 +300,9 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                     objectCursor.onerror = function () {
                         dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
                     };
-                };
-                userRequest.onerror = function (e) {
-                    dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
-                };
 
-                return dfd;
+                    return dfd;
+                });
             },
 
             fetchLevelsCount: function () {
