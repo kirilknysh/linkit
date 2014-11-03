@@ -1,0 +1,56 @@
+@import "variables";
+
+#messages {
+    .message {
+        color: @dark-color;
+        background: fade(@light-bg, 95%);
+        width: 40vw;
+        left: 10vw;
+        right: 10vw;
+        top: 25vh;
+        position: absolute;
+        margin: auto;
+        padding: 10px;
+        padding-bottom: 6vw;
+        border: 5px solid @dark-bg;
+
+        transform: rotateZ(-90deg);
+        -webkit-transform: rotateZ(-90deg);
+        transform-origin-x: -50vw;
+        -webkit-transform-origin-x: -50vw;
+        transition: transform @message-show-speed;
+        -webkit-transition: -webkit-transform @message-show-speed;
+
+        &.show {
+            transform: rotateZ(0deg);
+            -webkit-transform: rotateZ(0deg);
+        }
+
+        &.hide {
+            transform: rotateZ(90deg);
+            -webkit-transform: rotateZ(90deg);
+        }
+
+        h2 {
+            font-weight: @bold;
+            text-align: center;
+            font-size: 4vw;
+            margin-bottom: 20px;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 2.5vw;
+            margin-bottom: 15px;
+            font-size: 2.2vw;
+        }
+
+        .buttons {
+            text-align: center;
+            position: absolute;
+            left: @view-text-padding;
+            right: @view-text-padding;
+            font-size: 4vw;
+        }
+    }
+}

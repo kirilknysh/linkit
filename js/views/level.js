@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "text!html/target.html", "text!html/base.html"],
-    function (_, Backbone, BaseView, Game, LevelTemplate, TargetTemplate, BaseTemplate) {
+define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text!html/level.html", "text!html/target.html", "text!html/base.html"],
+    function (_, Backbone, BaseView, Game, MessageView, LevelTemplate, TargetTemplate, BaseTemplate) {
         var LevelView;
 
         LevelView = BaseView.extend({
@@ -54,7 +54,18 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
                         return Game.navigateToLevel(nextLevelIndex);
                     });
                 } else {
-
+                    (new MessageView()).show({
+                        "templateData": {
+                            "header": "O-o-pss!",
+                            "body": "Lorum ipsum dolor, Lorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolor",
+                            "buttons": [{
+                                "text": "Try again"
+                            }]
+                        },
+                        "postRender": function (message) {
+                            message.$el.find(".button").click(_.bind(message.hide, message));
+                        }
+                    });
                 }
             },
 

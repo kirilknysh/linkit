@@ -1,0 +1,7 @@
+<h2>${header}</h2>
+<p class="body">${body}</p>
+<div class="buttons">
+    <% _.forEach(buttons, function(button) { %>
+        <div class="button">${button.text}</div>
+    <% }); %>
+</div>
