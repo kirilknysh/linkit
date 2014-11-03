@@ -156,6 +156,40 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                 });
             },
 
+            setCurrentUserActiveLevel: function (newIndex) {
+                var dfd = new $.Deferred(),
+                    db = this.get("db"),
+                    index = _.isNumber(newIndex) ? newIndex : 1,
+                    userStore, userRequest;
+
+                userStore = db.transaction(this.get("DB_USERS_STORAGE"), "readwrite")
+                    .objectStore(this.get("DB_USERS_STORAGE"));
+                userRequest = userStore.get(this.getCurrentUserName());
+
+                userRequest.onerror = function (e) {
+                    dfd.reject({ code: Enum.GameErrorTypes.USER_ERROR });
+                };
+
+                userRequest.onsuccess = function (e) {
+                    var user = e.target.result,
+                        updateRequest;
+
+                    user.activeLevel = index;
+
+                    updateRequest = userStore.put(user);
+
+                    updateRequest.onerror = function (e) {
+                        dfd.reject({ code: Enum.GameErrorTypes.USER_ERROR });
+                    };
+
+                    updateRequest.transaction.oncomplete = function (e) {
+                        dfd.resolve(index);
+                    };
+                };
+
+                return dfd;
+            },
+
             getLevel: function (index) {
                 var dfd = new $.Deferred(),
                     db = this.get("db"),

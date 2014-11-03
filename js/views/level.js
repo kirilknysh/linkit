@@ -49,7 +49,13 @@ define(["lodash", "backbone", "js/views/base", "game", "text!html/level.html", "
             },
 
             onCheckSolutionClick: function (e) {
-                alert(this.validatelevel(this.getLevelSolution()));
+                if (this.validatelevel(this.getLevelSolution())) {
+                    Game.updateActiveLevel(this.levelIndex).then(function (nextLevelIndex) {
+                        return Game.navigateToLevel(nextLevelIndex);
+                    });
+                } else {
+
+                }
             },
 
             onLevelNumClick: function (e) {

@@ -89,7 +89,20 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
                 }, function (e) {
                     return router.navigate("error/" + Enum.GameErrorTypes.USER_ERROR, { trigger: true });
                 });
+            },
+
+            updateActiveLevel: function (passedLevelIndex) {
+                var db = this.db;
+
+                return db.getCurrentUserActiveLevel().then(function (activeLevel) {
+                    if (activeLevel === passedLevelIndex) {
+                        return db.setCurrentUserActiveLevel(passedLevelIndex + 1);
+                    } else {
+                        return passedLevelIndex + 1;
+                    }
+                });
             }
+
         });
 
         return game;
