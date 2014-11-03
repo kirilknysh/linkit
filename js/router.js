@@ -108,7 +108,11 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
                     } else {
                         dfd.resolve();
                     }
-                }, dfd.resolve);
+                }, function (e) {
+                    var errorCode = e.code || Enum.GameErrorTypes.GENERIC;
+
+                    router.navigate("error/" + errorCode, { trigger: true });
+                });
 
                 return dfd;
             }

@@ -143,11 +143,17 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                         .objectStore(this.get("DB_LEVELS_STORAGE"));
                 storeIndex = objectStore.index("by_index").get(index);
                 
-                storeIndex.onsuccess = function () {
-                    dfd.resolve(LevelsPool.get().init(this.result));
+                storeIndex.onsuccess = function (e) {
+                    var level = e.target.result;
+
+                    if (level) {
+                        dfd.resolve(LevelsPool.get().init(level));
+                    } else {
+                        dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
+                    }
                 };
                 storeIndex.onerror = function () {
-                    dfd.reject();
+                    dfd.reject({ code: Enum.GameErrorTypes.GENERIC });
                 };
 
                 return dfd;
@@ -160,7 +166,7 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                 $.getJSON(this.get("url"))
                     .then(function (data) {
                         if (!data || !_.isArray(data.levels)) {
-                            return dfd.reject();
+                            return dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
                         }
 
                         var db = model.get("db"),
@@ -187,7 +193,7 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
 
                         addItem();
                     }, function (e) {
-                        dfd.reject();
+                        dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
                     });
 
                 return dfd;
@@ -272,11 +278,11 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
                     };
 
                     objectCursor.onerror = function () {
-                        dfd.reject();
+                        dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
                     };
                 };
                 userRequest.onerror = function (e) {
-                    dfd.reject();
+                    dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
                 };
 
                 return dfd;
@@ -297,7 +303,7 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
 
                 count.onerror = function (e) {
                     model.set("levelsCount", null);
-                    dfd.reject(null);
+                    dfd.reject({ code: Enum.GameErrorTypes.NO_LEVELS_LOADED });
                 };
 
                 return dfd;
