@@ -241,28 +241,41 @@ define(["lodash", "backbone", "jquery", "js/models/LevelsPool", "js/enum", "js/m
             getAllLevels: function () {
                 var dfd = new $.Deferred(),
                     db = this.get("db"),
+                    model = this,
                     levels = [],
-                    objectStore, objectCursor;
+                    userStore, userRequest;
 
-                objectStore = db.transaction(this.get("DB_LEVELS_STORAGE"), "readonly")
-                        .objectStore(this.get("DB_LEVELS_STORAGE"));
+                userStore = db.transaction(this.get("DB_USERS_STORAGE"), "readonly")
+                    .objectStore(this.get("DB_USERS_STORAGE"));
 
-                objectCursor = objectStore.openCursor();
+                userRequest = userStore.get(this.getCurrentUserName());
+
+                userRequest.onsuccess = function (e) {
+                    var user = e.target.result,
+                        objectCursor;
+
+                    objectCursor = db.transaction(model.get("DB_LEVELS_STORAGE"), "readonly")
+                        .objectStore(model.get("DB_LEVELS_STORAGE")).openCursor();
                 
-                objectCursor.onsuccess = function (e) {
-                    var cursor = e.target.result,
-                        level;
+                    objectCursor.onsuccess = function (e) {
+                        var cursor = e.target.result,
+                            level;
 
-                    if (cursor) {
-                        level = cursor.value;
-                        levels.push(LevelsPool.get().init(level));
-                        cursor.continue();
-                    } else {
-                        dfd.resolve(levels);
-                    }
+                        if (cursor) {
+                            level = cursor.value;
+                            level.available = level.index <= user.activeLevel;
+                            levels.push(LevelsPool.get().init(level));
+                            cursor.continue();
+                        } else {
+                            dfd.resolve(levels);
+                        }
+                    };
+
+                    objectCursor.onerror = function () {
+                        dfd.reject();
+                    };
                 };
-
-                objectCursor.onerror = function () {
+                userRequest.onerror = function (e) {
                     dfd.reject();
                 };
 

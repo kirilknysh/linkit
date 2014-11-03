@@ -39,6 +39,7 @@ define(["lodash", "backbone", "jquery", "js/utils", "js/enum", "cryptojs-aes"],
                 this.set("basis", _.shuffle(level.basis));
                 this.set("targets", _.shuffle(level.targets));
                 this.set("solution", solution);
+                this.set("available", level.available);
                 this.setStyles(level.basis.length, level.targets.length);
 
                 return this;
