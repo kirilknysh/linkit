@@ -56,7 +56,7 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
             },
 
             checkBrowser: function () {
-                return !! (window.indexedDB);
+                return !! (window.indexedDB && window.localStorage);
             },
 
             initializeDB: function () {
