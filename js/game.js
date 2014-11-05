@@ -9,7 +9,7 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
             };
 
         _.extend(game, {
-            VERSION: "0.1",
+            VERSION: "0.2",
 
             initialize: function (router) {
                 var header = new HeaderView({ el: $("#header").get(0) });
