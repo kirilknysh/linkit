@@ -62,8 +62,8 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
                 } else {
                     (new MessageView()).show({
                         "templateData": {
-                            "header": "O-o-pss!",
-                            "body": "Lorum ipsum dolor, Lorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolorLorum ipsum dolor",
+                            "header": "O-o-o-p-psss!",
+                            "body": "Something is wrong. Try again, try to think deeper...",
                             "buttons": [{
                                 "text": "Try again"
                             }]
