@@ -55,24 +55,55 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
             },
 
             onCheckSolutionClick: function (e) {
+                var dfds = [];
+
                 if (this.validatelevel(this.getLevelSolution())) {
-                    Game.updateActiveLevel(this.levelIndex).then(function (nextLevelIndex) {
+                    dfds.push(Game.updateActiveLevel(this.levelIndex));
+                    dfds.push(this.showWinMessage());
+
+                    $.when.apply($, dfds).then(function (nextLevelIndex) {
                         return Game.navigateToLevel(nextLevelIndex);
                     });
                 } else {
-                    (new MessageView()).show({
-                        "templateData": {
-                            "header": "O-o-o-p-psss!",
-                            "body": "Something is wrong. Try again, try to think deeper...",
-                            "buttons": [{
-                                "text": "Try again"
-                            }]
-                        },
-                        "postRender": function (message) {
-                            message.$el.find(".button").click(_.bind(message.hide, message));
-                        }
-                    });
+                    this.showFailMessage();
                 }
+            },
+
+            showWinMessage: function () {
+                var dfd = new $.Deferred();
+
+                (new MessageView()).show({
+                    "templateData": {
+                        "header": "Co-o-o-ol!",
+                        "body": "Good job! Let's go futher! But be ready - it'll be not so easy!",
+                        "buttons": [{
+                            "text": "Next level"
+                        }]
+                    },
+                    "postRender": function (message) {
+                        message.$el.find(".button").click(function() {
+                            message.hide();
+                            dfd.resolve();
+                        });
+                    }
+                });
+
+                return dfd;
+            },
+
+            showFailMessage: function () {
+                (new MessageView()).show({
+                    "templateData": {
+                        "header": "O-o-o-p-psss!",
+                        "body": "Something is wrong. Try again, try to think deeper...",
+                        "buttons": [{
+                            "text": "Try again"
+                        }]
+                    },
+                    "postRender": function (message) {
+                        message.$el.find(".button").click(_.bind(message.hide, message));
+                    }
+                });
             },
 
             onLevelNumClick: function (e) {

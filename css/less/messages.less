@@ -18,8 +18,8 @@
         -webkit-transform: rotateZ(-90deg);
         transform-origin-x: -50vw;
         -webkit-transform-origin-x: -50vw;
-        transition: transform @message-show-speed;
-        -webkit-transition: -webkit-transform @message-show-speed;
+        transition: transform @message-show-speed cubic-bezier(0.075, 0.820, 0.165, 1.000);;
+        -webkit-transition: -webkit-transform @message-show-speed cubic-bezier(0.075, 0.820, 0.165, 1.000);;
 
         &.show {
             transform: rotateZ(0deg);
