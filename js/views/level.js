@@ -14,7 +14,8 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
 
             events: {
                 "click .check-solution": "onCheckSolutionClick",
-                "click .level-num.button": "onLevelNumClick"
+                "click .level-num.button": "onLevelNumClick",
+                "click .reset.button": "onResetClick"
             },
 
             initialize: function (index) {
@@ -48,6 +49,11 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
                     .then(_.bind(this.initDropAreas, this));
             },
 
+            reset: function () {
+                this.$el.find(".base .occupied").removeClass("occupied").attr("data-linked-target-id", "")
+                    .find(".target").appendTo(this.$el.find(".targets").get(0));
+            },
+
             onCheckSolutionClick: function (e) {
                 if (this.validatelevel(this.getLevelSolution())) {
                     Game.updateActiveLevel(this.levelIndex).then(function (nextLevelIndex) {
@@ -71,6 +77,10 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
 
             onLevelNumClick: function (e) {
                 Game.router.navigate("levels", { trigger: true });
+            },
+
+            onResetClick: function (e) {
+                this.reset();
             },
 
             initDropAreas: function () {
