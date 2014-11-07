@@ -15,7 +15,8 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
             events: {
                 "click .check-solution": "onCheckSolutionClick",
                 "click .level-num.button": "onLevelNumClick",
-                "click .reset.button": "onResetClick"
+                "click .reset.button": "onResetClick",
+                "click .logo.button": "onLogoClick"
             },
 
             initialize: function (index) {
@@ -112,6 +113,10 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
 
             onResetClick: function (e) {
                 this.reset();
+            },
+
+            onLogoClick: function () {
+                Game.router.navigate("welcome", { trigger: true });
             },
 
             initDropAreas: function () {
