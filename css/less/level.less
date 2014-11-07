@@ -18,6 +18,12 @@
             margin: @button-active-shadow-size;
         }
 
+        .level-buttons-sprite {
+            background: url('../img/level-buttons-sprite.png') no-repeat top left;
+            width: 64px;
+            height: 64px;
+        }
+
         .level-num {
             font-size: 7vh;
             height: 64px;
@@ -27,29 +33,23 @@
         }
 
         .check-solution {
-            width: 64px;
-            height: 64px;
-            background: url('../img/check-level-button.png') no-repeat;
+            background-position: 0px 0px;
 
             &:hover, &:active {
-                background-image: url('../img/check-level-button-active.png');
+                background-position: -64px 0px;
             }
         }
 
         .reset {
-            width: 64px;
-            height: 64px;
-            background: url('../img/reset-level-button.png') no-repeat;
+            background-position: -192px 0px;
 
             &:hover, &:active {
-                background-image: url('../img/reset-level-button-active.png');
+                background-position: -256px 0px;
             }
         }
 
         .logo {
-            width: 64px;
-            height: 64px;
-            background: url('../img/logo-64-64.png') no-repeat;
+            background-position: -128px 0px;
         }
     }
 
