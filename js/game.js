@@ -76,13 +76,18 @@ define(["lodash", "backbone", "jquery", "js/enum", "js/views/header", "js/models
             },
 
             navigateToLevel: function (levelNum) {
-                var router = this.router;
+                var router = this.router,
+                    db = this.db;
 
                 return this.db.getCurrentUserActiveLevel().then(function (activeLevel) {
                     if (levelNum <= activeLevel) {
                         router.hideCurrentView();
-                        router.navigate("level/" + levelNum);
-                        return router.showLevelView(levelNum);
+                        if (db.getLevelsCount() >= levelNum) {
+                            router.navigate("level/" + levelNum);
+                            return router.showLevelView(levelNum);
+                        } else {
+                            return router.navigate("gameOver");
+                        }
                     } else {
                         return router.navigate("error/" + Enum.GameErrorTypes.PAGE_NOT_FOUND, { trigger: true });
                     }
