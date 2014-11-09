@@ -1,5 +1,6 @@
 @import "variables";
 @import "animations";
+@import "mixins";
 
 .view {
     left: @view-left-padding;
@@ -162,6 +163,107 @@
             &.ie {
                 .bg-position(8);
             }
+        }
+    }
+}
+
+.view.error {
+    height: 86vh;
+    box-shadow: #000 0 0 25vw 0 inset;
+    box-sizing: border-box;
+
+    .basis {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        height: @error-basis-height;
+        text-align: center;
+
+        .base {
+            &.num4 {
+                background: url('../img/num4-bottom.png') no-repeat 0 0;
+            }
+            &.num0 {
+                background: url('../img/num0-bottom.png') no-repeat 0 0;
+            }
+        }
+    }
+
+    .targets {
+        position: absolute;
+        bottom: @error-basis-height;
+        left: 0px;
+        right: 0px;
+        height: 100px;
+        text-align: center;
+
+        .target {
+            animation-name: error-target;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+            animation-delay: @view-show-speed;
+            -webkit-animation-name: error-target;
+            -webkit-animation-fill-mode: forwards;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-delay: @view-show-speed;
+
+            transform: translate3d(0px, -100vh, 0px) rotateZ(-45deg);
+            -webkit-transform: translate3d(0px, -100vh, 0px) rotateZ(-45deg);
+            transform-origin: 0% 100%;
+            -webkit-transform-origin: 0% 100%;
+
+            &.num4 {
+                background: url('../img/num4-top.png') no-repeat 0 0;
+            }
+            &.num0 {
+                background: url('../img/num0-top.png') no-repeat 0 0;
+            }
+
+            &.target-0 {
+                .random(5, 15);
+                animation-duration: unit(@randomValue, s);
+                -webkit-animation-duration: unit(@randomValue, s);
+            }
+            &.target-1 {
+                .random(5, 15);
+                animation-duration: unit(@randomValue, s);
+                -webkit-animation-duration: unit(@randomValue, s);
+            }
+            &.target-2 {
+                .random(5, 15);
+                animation-duration: unit(@randomValue, s);
+                -webkit-animation-duration: unit(@randomValue, s);
+            }
+        }
+    }
+
+    .target, .base {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin: 0px 20px;
+    }
+
+    .message-header {
+        width: 100%;
+        margin-top: 50px;
+        text-align: center;
+        color: @light-color;
+        font-size: 8vh;
+        font-weight: @bold;
+        transform: translateZ(1px);
+        -webkit-transform: translateZ(1px);
+    }
+    .message-buttons {
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+        transform: translateZ(1px);
+        -webkit-transform: translateZ(1px);
+
+        a {
+            color: @links-color;
         }
     }
 }
