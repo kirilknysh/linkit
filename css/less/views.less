@@ -181,11 +181,12 @@
         text-align: center;
 
         .base {
-            &.num4 {
-                background: url('../img/num4-bottom.png') no-repeat 0 0;
-            }
-            &.num0 {
-                background: url('../img/num0-bottom.png') no-repeat 0 0;
+            background-color: @azure-bg;
+            overflow: hidden;
+
+            .number {
+                font-size: 170px;
+                margin-top: -100px;
             }
         }
     }
@@ -213,11 +214,12 @@
             transform-origin: 0% 100%;
             -webkit-transform-origin: 0% 100%;
 
-            &.num4 {
-                background: url('../img/num4-top.png') no-repeat 0 0;
-            }
-            &.num0 {
-                background: url('../img/num0-top.png') no-repeat 0 0;
+            background-color: @links-color;
+            overflow: hidden;
+
+            .number {
+                font-size: 170px;
+                margin-top: 0px;
             }
 
             &.target-0 {
@@ -243,6 +245,7 @@
         width: 100px;
         height: 100px;
         margin: 0px 20px;
+        font-weight: @bold;
     }
 
     .message-header {
