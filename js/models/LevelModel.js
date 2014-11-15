@@ -75,6 +75,22 @@ define(["lodash", "backbone", "jquery", "js/utils", "js/enum", "cryptojs-aes"],
 
             _getWidth: function (count, leftMargin, rightMargin) {
                 return (100 - (count * (leftMargin + rightMargin))) / count;
+            },
+
+            unload: function () {
+                var URL = window.URL || window.webkitURL;
+
+                _.forEach(this.get("basis"), function (base) {
+                    if (base.dataType === Enum.ItemDataType.IMAGE) {
+                        URL.revokeObjectURL(base.data);
+                    }
+                });
+
+                _.forEach(this.get("targets"), function (target) {
+                    if (target.dataType === Enum.ItemDataType.IMAGE) {
+                        URL.revokeObjectURL(target.data);
+                    }
+                });
             }
 
         });

@@ -8,7 +8,7 @@ define(["lodash", "backbone", "jquery", "js/models/LevelModel"],
         }
 
         function clearLevel(level) {
-
+            level.unload();
         }
 
         _.assign(LevelsPool, {
@@ -25,9 +25,14 @@ define(["lodash", "backbone", "jquery", "js/models/LevelModel"],
             },
 
             put: function (level) {
-                clearLevel(level);
-                ++this.poolVolume;
-                this.pool.push(level);
+                if (level instanceof LevelModel) {
+                    clearLevel(level);
+                    ++this.poolVolume;
+                    this.pool.push(level);
+                    return true;
+                }
+
+                return false;
             }
         });
 

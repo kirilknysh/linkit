@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text!html/level.html", "text!html/target.html", "text!html/base.html"],
-    function (_, Backbone, BaseView, Game, MessageView, LevelTemplate, TargetTemplate, BaseTemplate) {
+define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsPool", "js/views/message", "text!html/level.html", "text!html/target.html", "text!html/base.html"],
+    function (_, Backbone, BaseView, Game, LevelsPool, MessageView, LevelTemplate, TargetTemplate, BaseTemplate) {
         var LevelView;
 
         LevelView = BaseView.extend({
@@ -53,6 +53,12 @@ define(["lodash", "backbone", "js/views/base", "game", "js/views/message", "text
             reset: function () {
                 this.$el.find(".base .occupied").removeClass("occupied").attr("data-linked-target-id", "")
                     .find(".target").appendTo(this.$el.find(".targets").get(0));
+            },
+
+            remove: function () {
+                LevelsPool.put(this.model);
+
+                BaseView.prototype.remove.apply(this, arguments);
             },
 
             onCheckSolutionClick: function (e) {

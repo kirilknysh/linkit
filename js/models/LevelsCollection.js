@@ -1,5 +1,5 @@
-define(["lodash", "backbone", "js/utils", "js/enum", "js/models/LevelModel"],
-    function (_, Backbone, Utils, Enum, LevelModel) {
+define(["lodash", "backbone", "js/utils", "js/enum", "js/models/LevelModel", "js/models/LevelsPool"],
+    function (_, Backbone, Utils, Enum, LevelModel, LevelsPool) {
 
         return Backbone.Collection.extend({
 
@@ -21,6 +21,10 @@ define(["lodash", "backbone", "js/utils", "js/enum", "js/models/LevelModel"],
                 });
 
                 return levels;
+            },
+
+            unload: function () {
+                while(LevelsPool.put(this.pop())) { }
             }
 
         });

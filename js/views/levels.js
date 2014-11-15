@@ -28,6 +28,12 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsCollecti
                 });
             },
 
+            remove: function () {
+                this.model.unload();
+
+                BaseView.prototype.remove.apply(this, arguments);
+            },
+
             getTemplateData: function () {
                 return { levels: this.model.getJSONLevels() };
             },
