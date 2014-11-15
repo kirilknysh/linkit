@@ -202,11 +202,9 @@
         .target {
             animation-name: error-target;
             animation-fill-mode: forwards;
-            animation-timing-function: linear;
             animation-delay: @view-show-speed;
             -webkit-animation-name: error-target;
             -webkit-animation-fill-mode: forwards;
-            -webkit-animation-timing-function: linear;
             -webkit-animation-delay: @view-show-speed;
 
             transform: translate3d(0px, -100vh, 0px) rotateZ(-45deg);
@@ -228,12 +226,12 @@
                 -webkit-animation-duration: unit(@randomValue, s);
             }
             &.target-1 {
-                .random(5, 15);
+                .random(5, 5);
                 animation-duration: unit(@randomValue, s);
                 -webkit-animation-duration: unit(@randomValue, s);
             }
             &.target-2 {
-                .random(5, 15);
+                .random(5, 10);
                 animation-duration: unit(@randomValue, s);
                 -webkit-animation-duration: unit(@randomValue, s);
             }
@@ -248,25 +246,31 @@
         font-weight: @bold;
     }
 
-    .message-header {
+    .message-header, .message-buttons, .message-body {
         width: 100%;
-        margin-top: 50px;
-        text-align: center;
+        transform: translateZ(1px);
+        -webkit-transform: translateZ(1px);
         color: @light-color;
-        font-size: 8vh;
-        font-weight: @bold;
-        transform: translateZ(1px);
-        -webkit-transform: translateZ(1px);
-    }
-    .message-buttons {
-        width: 100%;
-        margin-top: 20px;
         text-align: center;
-        transform: translateZ(1px);
-        -webkit-transform: translateZ(1px);
 
         a {
             color: @links-color;
         }
+    }
+
+    .message-header {
+        margin-top: 50px;
+        font-size: 8vh;
+        font-weight: @bold;
+    }
+    .message-buttons {
+        margin-top: 20px;
+    }
+
+    .message-body {
+        margin-top: 20px;
+        font-size: 3vh;
+        text-align: justify;
+        padding: 0vh 15vh;
     }
 }

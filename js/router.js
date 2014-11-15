@@ -42,7 +42,7 @@ define(["lodash", "backbone", "jquery", "game", "js/enum", "js/views/welcome", "
                 }
 
                 this.hideCurrentView();
-                this.showView(viewToShow);
+                this.showView(viewToShow, errorCode);
             },
 
             level: function (number) {
