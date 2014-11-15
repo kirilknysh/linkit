@@ -51,15 +51,17 @@ footer {
     left: 0px;
     right: 0px;
     height: @footer-height;
+    font-size: 0px;
     .vertical-align();
 
-    .info, .addthis_sharing_toolbox {
+    .info, .addthis_sharing_toolbox, .github-link {
         display: inline-block;
         color: @light-color;
     }
 
     .info {
         vertical-align: middle;
+        font-size: 2vh;
     }
 
     .addthis_sharing_toolbox {
@@ -67,6 +69,28 @@ footer {
         right: 0px;
         top: 0px;
         bottom: 0px;
+    }
+
+    .github-link {
+        width: @footer-height;
+
+        .link {
+            color: @light-color;
+            font-weight: @bold;
+            font-size: 1.5vh;
+            line-height: 2vh;
+            position: absolute;
+            top: (@footer-height - 2) / 2;
+            width: 2 * @footer-height;
+            left: -@footer-height + @footer-height / 2;
+            text-align: center;
+            background: @links-color;
+            box-shadow: #000 0px 0px 4px 0px;
+            text-shadow: 0 0 5px #000;
+            border: 1px dotted fade(@light-bg, 50%);
+            -webkit-transform: rotateZ(45deg) translateY(1vh);
+            transform: rotateZ(45deg) translateY(1vh);
+        }
     }
 }
 
