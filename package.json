@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/kirilknysh/linkit/issues"
   },
-  "homepage": "",
+  "homepage": "https://link-it.herokuapp.com/",
   "dependencies": {
     "http-server": "^0.8.0"
   }
