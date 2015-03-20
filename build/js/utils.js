@@ -1,0 +1,1 @@
+define(["lodash"],function(n){var i={};return n.assign(i,{levels:{stringifySolution:function(i){var r=[];return n.forEach(i,function(n,i){r.push(i+"-"+n)}),r.join("::")},parseSolution:function(i){if(!n.isString(i))return null;var r=i.split("::"),t={};return n.forEach(r,function(n){var i=n.split("-");t[i[0]]=i[1]}),t}}}),i});

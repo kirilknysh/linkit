@@ -1,0 +1,38 @@
+{
+    "levels": [{
+        "index": 1,
+        "basis": [
+            { "id": "basis.1.0", "data": "1 + 1", "dataType": "text", "settings": { "cssClass": "xxx-large" } },
+            { "id": "basis.1.1", "data": "4 × 4", "dataType": "text", "settings": { "cssClass": "xxx-large" } },
+            { "id": "basis.1.2", "data": "6 / 2", "dataType": "text", "settings": { "cssClass": "xxx-large" } }
+        ],
+        "targets": [
+            { "id": "target.1.0", "data": "3", "dataType": "text", "settings": { "cssClass": "xxx-large" } },
+            { "id": "target.1.1", "data": "2", "dataType": "text", "settings": { "cssClass": "xxx-large" } },
+            { "id": "target.1.2", "data": "16", "dataType": "text", "settings": { "cssClass": "xxx-large" } }
+        ],
+        "solution": "U2FsdGVkX18w/FGihzDXi3VkamSOOsZKyNKkFrJcswEg/zQCQU3bq5yVYqD1kow3LVzSMw+sWLEAJ9DlSbEE8916YqPxhf+hLz78v7M7zpS9Kxm+5d1UPYHotRDsDa5b"
+    }, {
+        "index": 2,
+        "basis": [
+            { "id": "basis.2.0", "data": "a b c ...", "dataType": "text", "settings": { "cssClass": "xx-large" } },
+            { "id": "basis.2.1", "data": "k l m ...", "dataType": "text", "settings": { "cssClass": "xx-large" } }
+        ],
+        "targets": [
+            { "id": "target.2.0", "data": "n", "dataType": "text", "settings": { "cssClass": "xx-large" } },
+            { "id": "target.2.1", "data": "d", "dataType": "text", "settings": { "cssClass": "xx-large" } }
+        ],
+        "solution": "U2FsdGVkX1+idhatdKawKebda4taMoAR851pkJhho18BwAivtg65DvEBy/CGZP+guKt3hMJKu45BU8PVn63ylQ=="
+    }, {
+        "index": 3,
+        "basis": [
+            { "id": "basis.3.0", "data": "Hello!", "dataType": "text", "settings": { "cssClass": "xx-large" } },
+            { "id": "basis.3.1", "data": "Привет!", "dataType": "text", "settings": { "cssClass": "xx-large" } }
+        ],
+        "targets": [
+            { "id": "target.3.0", "data": "img/levels/target.3.0.png", "dataType": "image", "settings": { "cssClass": "" } },
+            { "id": "target.3.1", "data": "img/levels/target.3.1.png", "dataType": "image", "settings": { "cssClass": "" } }
+        ],
+        "solution": "U2FsdGVkX1+e2XF9l2oYAgxU/B2TnyILrPjA93Qgdu8vYFzSUdwKd9+90EbXNiaUkSGG9RAG/qvJx2fe91pdRA=="
+    }]
+}

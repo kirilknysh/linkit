@@ -1,0 +1,1 @@
+define(["lodash","backbone","js/views/base","game","text!html/gameOver.html"],function(e,a,t,m,n){var l;return l=t.extend({template:e.template(n),tagName:"div",name:"gameOver"})});

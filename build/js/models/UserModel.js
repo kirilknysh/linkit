@@ -1,0 +1,1 @@
+define(["lodash","backbone","jquery"],function(e,n){return n.Model.extend({defaults:{name:"",activeLevel:1}})});

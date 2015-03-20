@@ -1,0 +1,16 @@
+<div class="level-menu">
+    <div class="logo level-buttons-sprite button" title="Link It!"></div>
+    <div class="level-num button" title="View all levels">${index}</div>
+    <div class="check-solution level-buttons-sprite button" title="Check current solution"></div>
+    <div class="reset level-buttons-sprite button" title="Start again"></div>
+</div>
+<div class="targets drop-area">
+    <% _.forEach(targets, function(target) { %>
+        <%= renderTargetItem(target) %>
+    <% }); %>
+</div>
+<div class="basis">
+    <% _.forEach(basis, function(base) { %>
+        <%= renderBasisItem(base) %>
+    <% }); %>
+</div>

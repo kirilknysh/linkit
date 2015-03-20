@@ -1,0 +1,1 @@
+define(["lodash","backbone","js/views/base","text!html/oldBrowserError.html"],function(e,t,o,r){return o.extend({template:e.template(r),name:"old-browser-error",events:{"click .browser-thumb":"goToBrowser"},goToBrowser:function(e){var t=e.target;t&&t.dataset&&t.dataset.destination&&(window.location.href=t.dataset.destination)}})});
