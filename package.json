@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/kirilknysh/linkit/issues"
   },
-  "homepage": ""
+  "homepage": "",
+  "dependencies": {
+    "http-server": "^0.8.0"
+  }
 }
