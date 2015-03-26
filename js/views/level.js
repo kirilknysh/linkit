@@ -147,7 +147,7 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsPool", "
                         solution[base.id] = dropArea.dataset.linkedTargetId || "";
                     }
                 });
-                
+
                 return solution;
             },
 
@@ -162,7 +162,7 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsPool", "
         //===================================
 
         function onDragStart (e) {
-            e.originalEvent.dataTransfer.setData("text/html", e.currentTarget.id);
+            e.originalEvent.dataTransfer.setData("text/plain", e.currentTarget.id);
         }
 
         function onDragEnter (e) {
@@ -180,12 +180,12 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsPool", "
         }
 
         function onDrop (e) {
-            var targetId = e.originalEvent.dataTransfer.getData("text/html"),
+            var targetId = e.originalEvent.dataTransfer.getData("text/plain"),
                 target = document.getElementById(targetId),
                 pastBase;
 
             e.preventDefault();
-            
+
             e.currentTarget.classList.remove('drag-over');
 
             // if drop to base
@@ -198,14 +198,14 @@ define(["lodash", "backbone", "js/views/base", "game", "js/models/LevelsPool", "
                 e.currentTarget.dataset.linkedTargetId = targetId;
                 e.currentTarget.classList.add("occupied");
             }
-            
+
             // if drop back from base
             pastBase = $(target).closest("[data-drop-area-base]")[0];
             if (pastBase) {
                 pastBase.dataset.linkedTargetId = "";
                 pastBase.classList.remove("occupied");
             }
-            
+
             e.currentTarget.appendChild(target);
         }
 
